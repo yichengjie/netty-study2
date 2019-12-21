@@ -8,19 +8,13 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class EchoClientHandler extends ChannelHandlerAdapter {
-
-    private final ByteBuf firstMessage ;
-
-    public EchoClientHandler(){
-        byte [] req = "QUERY TIME ORDER".getBytes() ;
-        firstMessage = Unpooled.buffer(req.length) ;
-        firstMessage.writeBytes(req);
-    }
-
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("method channelInactive called ...");
-        ctx.writeAndFlush(firstMessage) ;
+        for (int i= 0 ; i < 10 ; i ++){
+            byte[] bytes = ("Hi, yicj. Welcom to Netty." + Constants.END_STR).getBytes();
+            ByteBuf buf = Unpooled.copiedBuffer(bytes) ;
+            ctx.writeAndFlush(buf) ;
+        }
     }
 
     @Override

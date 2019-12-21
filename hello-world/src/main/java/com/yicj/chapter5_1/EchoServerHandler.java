@@ -1,5 +1,6 @@
 package com.yicj.chapter5_1;
 
+import com.yicj.chapter5.Constants;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerAdapter;
@@ -19,14 +20,8 @@ public class EchoServerHandler extends ChannelHandlerAdapter {
         buf.readBytes(req) ;
         String body = new String(req,"UTF-8") ;
         log.info("The time server receive order : " + body);
-        String currentTime = "QUERY TIME ORDER".equalsIgnoreCase(body) ? new Date(System.currentTimeMillis()).toString() : "BAD ORDER";
-        ByteBuf resp = Unpooled.copiedBuffer(currentTime.getBytes()) ;
-        ctx.write(resp) ;
-    }
-
-    @Override
-    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        ctx.flush() ;
+        ByteBuf resp = Unpooled.copiedBuffer(body.getBytes()) ;
+        ctx.writeAndFlush(resp) ;
     }
 
     @Override

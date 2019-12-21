@@ -35,22 +35,4 @@ public class EchoClientHandler extends ChannelHandlerAdapter {
         log.warn("Unexpected exception from downstream : {}", cause.getMessage());
         ctx.close() ;
     }
-
-  /*  @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        String body = (String) msg ;
-        log.info("This is " + (++counter)
-                +" times receive server : ["+body+"]");
-    }
-
-    @Override
-    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        ctx.flush() ;
-    }
-
-    @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        log.error("===> ",cause) ;
-        ctx.close() ;
-    }*/
 }
