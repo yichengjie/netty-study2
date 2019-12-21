@@ -30,8 +30,8 @@ public class EchoServer {
                     ByteBuf delimiter = Unpooled.copiedBuffer(Constants.END_STR.getBytes()) ;
                     //Decoder为inBound，先加入的先执行
                     ChannelPipeline pipeline = ch.pipeline();
-                    pipeline.addLast(new DelimiterBasedFrameDecoder(1024,delimiter)) ;
-                    pipeline.addLast(new StringDecoder()) ;
+                    //pipeline.addLast(new DelimiterBasedFrameDecoder(1024,delimiter)) ;
+                    //pipeline.addLast(new StringDecoder()) ;
                     pipeline.addLast(new EchoServerHandler()) ;
                 }
             }) ;

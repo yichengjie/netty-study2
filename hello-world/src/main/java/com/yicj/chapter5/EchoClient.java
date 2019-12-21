@@ -25,8 +25,8 @@ public class EchoClient {
                 protected void initChannel(SocketChannel ch) throws Exception {
                     ByteBuf delimiter = Unpooled.copiedBuffer(Constants.END_STR.getBytes()) ;
                     ChannelPipeline p = ch.pipeline();
-                    p.addLast(new DelimiterBasedFrameDecoder(1024,delimiter)) ;
-                    p.addLast(new StringDecoder()) ;
+                    //p.addLast(new DelimiterBasedFrameDecoder(1024,delimiter)) ;
+                    //p.addLast(new StringDecoder()) ;
                     p.addLast(new EchoClientHandler()) ;
                 }
             }) ;

@@ -12,11 +12,13 @@ public class EchoServerHandler extends ChannelHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        String body = (String) msg ;
-        //log.info("This is " + (++counter)
-        //        +" times receive client : ["+ body+"]");
+        ByteBuf buf = (ByteBuf)msg ;
+        byte [] req = new byte[buf.readableBytes()] ;
+        buf.readBytes(req) ;
+        String body = new String(req,"UTF-8") ;
+        log.info("This is " + (++counter)
+                +" times receive client : ["+ body+"]");
         body  = body + Constants.END_STR ;
-        log.info("=====> return body is :  " + body);
         ByteBuf echo = Unpooled.copiedBuffer(body.getBytes()) ;
         ctx.writeAndFlush(echo) ;
     }
