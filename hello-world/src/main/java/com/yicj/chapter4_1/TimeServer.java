@@ -1,0 +1,52 @@
+package com.yicj.chapter4_1;
+
+import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.*;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.LineBasedFrameDecoder;
+import io.netty.handler.codec.string.StringDecoder;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class TimeServer {
+    public void bind(int port) throws Exception{
+        //配置服务端NIO线程组
+        EventLoopGroup boosGroup = new NioEventLoopGroup() ;
+        EventLoopGroup workGroup = new NioEventLoopGroup();
+        try {
+            ServerBootstrap b = new ServerBootstrap() ;
+            b.group(boosGroup,workGroup) ;
+            b.channel(NioServerSocketChannel.class) ;
+            b.option(ChannelOption.SO_BACKLOG,1024) ;
+            b.childHandler(new ChildChannelHandler()) ;
+            //绑定端口，同步等待成功
+            ChannelFuture future = b.bind(port).sync();
+            //等待服务端监听端口关闭
+            future.channel().closeFuture().sync() ;
+        }finally {
+            //优雅退出，释放线程池资源
+            boosGroup.shutdownGracefully() ;
+            workGroup.shutdownGracefully() ;
+        }
+
+    }
+
+    private class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
+        protected void initChannel(SocketChannel socketChannel) throws Exception {
+            ChannelPipeline pipeline = socketChannel.pipeline();
+            //解决粘包、拆包问题
+            pipeline.addLast(new LineBasedFrameDecoder(1024)) ;
+            pipeline.addLast(new StringDecoder()) ;
+            pipeline.addLast(new TimeServerHandler()) ;
+        }
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        int port = 8080 ;
+        System.out.println("server is start !");
+        new TimeServer().bind(port);
+    }
+}
