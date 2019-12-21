@@ -40,6 +40,7 @@ public class EchoServer {
         protected void initChannel(SocketChannel ch) throws Exception {
             ChannelPipeline pipeline = ch.pipeline();
             ByteBuf delimiter = Unpooled.copiedBuffer(Constants.END_STR.getBytes()) ;
+            //如果没有DelimiterBasedFrameDecoder，则服务端会一次接收到客户端的所有消息
             pipeline.addLast(new DelimiterBasedFrameDecoder(1024,delimiter)) ;
             pipeline.addLast(new StringDecoder()) ;
             pipeline.addLast(new EchoServerHandler()) ;
