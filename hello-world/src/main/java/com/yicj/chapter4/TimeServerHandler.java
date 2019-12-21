@@ -1,4 +1,4 @@
-package com.yicj.hello;
+package com.yicj.chapter4;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -10,6 +10,14 @@ import java.util.Date;
 
 @Slf4j
 public class TimeServerHandler extends ChannelHandlerAdapter {
+    String lineSeparator = System.getProperty("line.separator");
+    private int counter ;
+
+    public static void main(String[] args) {
+        String lineSeparator = System.getProperty("line.separator");
+        System.out.println("["+lineSeparator+"], " + lineSeparator.length());
+        System.out.println("\r\n".equals(lineSeparator));
+    }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -18,8 +26,12 @@ public class TimeServerHandler extends ChannelHandlerAdapter {
         byte [] req = new byte[buf.readableBytes()] ;
         buf.readBytes(req) ;
         String body = new String(req,"UTF-8") ;
-        log.info("The time server receive order : " + body);
-        String currentTime = "QUERY TIME ORDER".equalsIgnoreCase(body) ? new Date(System.currentTimeMillis()).toString() : "BAD ORDER";
+        //删除报文结尾的换行符
+        body = body.substring(0, req.length - lineSeparator.length());
+        log.info("The time server receive order : " + body +" ; the counter is : " + (++counter));
+        String currentTime = "QUERY TIME ORDER".equalsIgnoreCase(body) ?
+                new Date(System.currentTimeMillis()).toString() : "BAD ORDER";
+        currentTime = currentTime + lineSeparator ;
         ByteBuf resp = Unpooled.copiedBuffer(currentTime.getBytes()) ;
         ctx.write(resp) ;
     }
