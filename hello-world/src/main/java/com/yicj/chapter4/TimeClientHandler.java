@@ -30,7 +30,7 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        log.info("TimeClientHandler.channelRead called ...");
+        log.info("EchoClientHandler.channelRead called ...");
         ByteBuf buf = (ByteBuf) msg ;
         byte [] req = new byte[buf.readableBytes()] ;
         buf.readBytes(req) ;
