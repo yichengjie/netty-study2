@@ -21,13 +21,12 @@ public class EchoClientHandler extends ChannelHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        log.info("EchoClientHandler.channelRead called ...");
-        //String body = (String) msg ;
-        ByteBuf buf = (ByteBuf)msg ;
-        byte [] req = new byte[buf.readableBytes()] ;
-        buf.readBytes(req) ;
-        String body = new String(req,"UTF-8") ;
-        log.info("Now is : " + body +" ; the counter is : " + (++ counter));
+       log.info("This is " + (++counter) +" times receive server : ["+msg+"]");
+    }
+
+    @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        ctx.flush();
     }
 
     @Override

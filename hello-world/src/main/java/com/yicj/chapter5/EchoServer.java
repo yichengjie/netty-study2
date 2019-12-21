@@ -24,17 +24,7 @@ public class EchoServer {
             b.channel(NioServerSocketChannel.class) ;
             b.option(ChannelOption.SO_BACKLOG,100) ;
             b.handler(new LoggingHandler(LogLevel.INFO)) ;
-            b.childHandler(new ChannelInitializer<SocketChannel>() {
-                @Override
-                protected void initChannel(SocketChannel ch) throws Exception {
-                    ByteBuf delimiter = Unpooled.copiedBuffer(Constants.END_STR.getBytes()) ;
-                    //Decoder为inBound，先加入的先执行
-                    ChannelPipeline pipeline = ch.pipeline();
-                    //pipeline.addLast(new DelimiterBasedFrameDecoder(1024,delimiter)) ;
-                    //pipeline.addLast(new StringDecoder()) ;
-                    pipeline.addLast(new EchoServerHandler()) ;
-                }
-            }) ;
+            b.childHandler(new ChildChannelHandler()) ;
             //绑定端口，同步等待成功
             ChannelFuture f = b.bind(port).sync();
             //同步等待服务端监听端口关闭
@@ -43,6 +33,16 @@ public class EchoServer {
             //优雅退出，释放线程池资源
             bossGroup.shutdownGracefully() ;
             workGroup.shutdownGracefully() ;
+        }
+    }
+
+    private class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
+        protected void initChannel(SocketChannel ch) throws Exception {
+            ChannelPipeline pipeline = ch.pipeline();
+            ByteBuf delimiter = Unpooled.copiedBuffer(Constants.END_STR.getBytes()) ;
+            pipeline.addLast(new DelimiterBasedFrameDecoder(1024,delimiter)) ;
+            pipeline.addLast(new StringDecoder()) ;
+            pipeline.addLast(new EchoServerHandler()) ;
         }
     }
 
