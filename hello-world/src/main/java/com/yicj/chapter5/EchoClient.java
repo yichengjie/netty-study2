@@ -11,6 +11,7 @@ import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 
 public class EchoClient {
+
     public void connect(int port, String host) throws InterruptedException {
         //配置客户端NIO线程组
         EventLoopGroup group = new NioEventLoopGroup();
@@ -21,13 +22,12 @@ public class EchoClient {
             b.option(ChannelOption.TCP_NODELAY,true) ;
             b.handler(new ChannelInitializer<SocketChannel>() {
                 @Override
-                protected void initChannel(SocketChannel socketChannel) throws Exception {
-                    ByteBuf delimiter = Unpooled.copiedBuffer("$_".getBytes()) ;
-                    ChannelPipeline p = socketChannel.pipeline();
+                protected void initChannel(SocketChannel ch) throws Exception {
+                    ByteBuf delimiter = Unpooled.copiedBuffer(Constants.END_STR.getBytes()) ;
+                    ChannelPipeline p = ch.pipeline();
                     p.addLast(new DelimiterBasedFrameDecoder(1024,delimiter)) ;
                     p.addLast(new StringDecoder()) ;
                     p.addLast(new EchoClientHandler()) ;
-
                 }
             }) ;
             //发起异步连接操作，并同步等待连接成功

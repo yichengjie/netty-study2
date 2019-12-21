@@ -7,7 +7,6 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.logging.LogLevel;
@@ -28,7 +27,7 @@ public class EchoServer {
             b.childHandler(new ChannelInitializer<SocketChannel>() {
                 @Override
                 protected void initChannel(SocketChannel ch) throws Exception {
-                    ByteBuf delimiter = Unpooled.copiedBuffer("$_".getBytes()) ;
+                    ByteBuf delimiter = Unpooled.copiedBuffer(Constants.END_STR.getBytes()) ;
                     //Decoder为inBound，先加入的先执行
                     ChannelPipeline pipeline = ch.pipeline();
                     pipeline.addLast(new DelimiterBasedFrameDecoder(1024,delimiter)) ;
