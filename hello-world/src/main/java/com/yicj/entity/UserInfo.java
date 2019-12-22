@@ -7,6 +7,7 @@ public class UserInfo implements Serializable {
     private static final long serialVersionUID = 1L ;
     private String userName ;
     private int userID ;
+    private int age ;
 
 
     public UserInfo buildUserName(String userName){
@@ -34,6 +35,13 @@ public class UserInfo implements Serializable {
         this.userID = userID;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 
     public byte[] codeC(){
         ByteBuffer buffer = ByteBuffer.allocate(1024) ;

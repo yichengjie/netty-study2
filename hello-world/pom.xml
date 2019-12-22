@@ -11,4 +11,12 @@
 
     <artifactId>hello-world</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.msgpack</groupId>
+            <artifactId>msgpack</artifactId>
+            <version>0.6.12</version>
+        </dependency>
+    </dependencies>
+
 </project>
