@@ -2,13 +2,14 @@ package com.yicj.chapter7;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.MessageToMessageDecoder;
 import org.msgpack.MessagePack;
 import org.msgpack.type.Value;
 
 import java.util.List;
 
-public class MsgpackDecoder extends MessageToMessageDecoder<ByteBuf> {
+public class MsgpackDecoder extends ByteToMessageDecoder {
     @Override
     protected void decode(ChannelHandlerContext channelHandlerContext,
                           ByteBuf byteBuf, List<Object> list) throws Exception {
