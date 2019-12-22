@@ -1,4 +1,4 @@
-package com.yicj.bytebuf;
+package com.yicj.apis;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
