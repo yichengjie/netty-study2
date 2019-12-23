@@ -1,7 +1,7 @@
 chapter3:简单的时间打印
 chapter4:粘包和拆包练习
 chapter4_1:添加LineBasedFrameDecoder和StringDecoder解决半包问题
-chapter7: 使用MessagePack编解码
+chapter7: 使用MessagePack编解码,注意使用MessagePack时序列化的对象一定要注解@Message,否则无法传递数据
 
 
 

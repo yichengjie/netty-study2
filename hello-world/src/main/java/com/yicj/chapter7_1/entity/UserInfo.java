@@ -1,4 +1,4 @@
-package com.yicj.chapter7.entity;
+package com.yicj.chapter7_1.entity;
 
 import lombok.Data;
 import org.msgpack.annotation.Message;
