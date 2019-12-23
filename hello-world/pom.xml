@@ -17,6 +17,12 @@
             <artifactId>msgpack</artifactId>
             <version>0.6.12</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.jibx</groupId>
+            <artifactId>jibx-run</artifactId>
+            <version>1.2.6</version>
+        </dependency>
     </dependencies>
 
 </project>
