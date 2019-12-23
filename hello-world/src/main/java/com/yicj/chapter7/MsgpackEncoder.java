@@ -12,7 +12,7 @@ public class MsgpackEncoder extends MessageToByteEncoder<Object> {
     @Override
     protected void encode(ChannelHandlerContext channelHandlerContext, Object o, ByteBuf byteBuf) throws Exception {
         MessagePack msgpack = new MessagePack() ;
-        byte[] raw = msgpack.write(o);
-        byteBuf.writeBytes(raw) ;
+        byte[] bytes = msgpack.write(o);
+        byteBuf.writeBytes(bytes) ;
     }
 }

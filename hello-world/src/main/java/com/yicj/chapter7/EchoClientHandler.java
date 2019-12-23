@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class EchoClientHandler extends ChannelHandlerAdapter {
     private int sendNumber ;
+    private int count;
     public EchoClientHandler(int sendNumber){
         this.sendNumber = sendNumber ;
     }
@@ -23,8 +24,10 @@ public class EchoClientHandler extends ChannelHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        log.info("Client receive the msgpack message : " + msg);
-        //ctx.write(msg) ;
+        System.out.println("this is client receive msg【  "+ ++count +"  】times:【"+msg+"】");
+        if(count<5){ //控制运行次数，因为不加这个控制直接调用下面代码的话，客户端和服务端会形成闭环循环，一直运行
+            ctx.write(msg);
+        }
     }
 
     @Override

@@ -39,8 +39,8 @@ public class EchoServer {
     private class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
         protected void initChannel(SocketChannel ch) throws Exception {
             ChannelPipeline p = ch.pipeline();
-            p.addLast("msgpack-decoder",new MsgpackDecoder()) ;
-            p.addLast("msgpack-encoder", new MsgpackEncoder()) ;
+            p.addLast("decoder",new MsgpackDecoder()) ;
+            p.addLast("encoder", new MsgpackEncoder()) ;
             p.addLast(new EchoServerHandler()) ;
         }
     }
