@@ -30,8 +30,8 @@ public class EchoClient {
                 @Override
                 protected void initChannel(SocketChannel ch) throws Exception {
                     ChannelPipeline p = ch.pipeline();
-                    p.addLast("msgpack decoder",new MsgpackDecoder()) ;
-                    p.addLast("msgpack encoder", new MsgpackEncoder()) ;
+                    p.addLast("msgpack-decoder",new MsgpackDecoder()) ;
+                    p.addLast("msgpack-encoder", new MsgpackEncoder()) ;
                     p.addLast(new EchoClientHandler(sendNumber)) ;
                 }
             }) ;

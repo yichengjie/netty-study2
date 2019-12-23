@@ -1,6 +1,6 @@
 package com.yicj.chapter7;
 
-import com.yicj.entity.UserInfo;
+import com.yicj.chapter7.entity.UserInfo;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,7 @@ public class EchoClientHandler extends ChannelHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        UserInfo [] infos = initUserInfos() ;
+        UserInfo[] infos = initUserInfos() ;
         for (UserInfo info : infos){
             ctx.write(info) ;
         }
