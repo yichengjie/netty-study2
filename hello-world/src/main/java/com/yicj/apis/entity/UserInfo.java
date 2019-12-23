@@ -1,4 +1,4 @@
-package com.yicj.entity;
+package com.yicj.apis.entity;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;

@@ -1,6 +1,7 @@
 package com.yicj.apis;
 
-import com.yicj.entity.UserInfo;
+
+import com.yicj.apis.entity.UserInfo;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
