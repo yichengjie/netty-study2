@@ -10,6 +10,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>hello-world</artifactId>
+    <properties>
+        <jibx.version>1.2.6</jibx.version>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -21,8 +24,59 @@
         <dependency>
             <groupId>org.jibx</groupId>
             <artifactId>jibx-run</artifactId>
-            <version>1.2.6</version>
+            <version>${jibx.version}</version>
         </dependency>
+
+        <!--<dependency>
+            <groupId>org.jibx</groupId>
+            <artifactId>jibx-extras</artifactId>
+            <version>${jibx.version}</version>
+        </dependency>-->
+
+        <dependency>
+            <groupId>org.jibx</groupId>
+            <artifactId>jibx-bind</artifactId>
+            <version>${jibx.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jibx</groupId>
+            <artifactId>jibx-tools</artifactId>
+            <version>${jibx.version}</version>
+        </dependency>
+
+        <!--
+        <dependency>
+            <groupId>org.jibx</groupId>
+            <artifactId>jibx-schema</artifactId>
+            <version>${jibx.version}</version>
+        </dependency>-->
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin><!-- 生成jibx class信息 -->
+                <groupId>org.jibx</groupId>
+                <artifactId>jibx-maven-plugin</artifactId>
+                <version>1.2.6</version>
+                <configuration>
+                    <schemaBindingDirectory>${basedir}/target/classes/jibx</schemaBindingDirectory>
+                    <includeSchemaBindings>
+                        <includeSchemaBindings>*binding.xml</includeSchemaBindings>
+                    </includeSchemaBindings>
+                    <verbose>true</verbose>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>jibx-bind</id>
+                        <phase>compile</phase><!--把jibx绑定到了comile编译阶段 -->
+                        <goals>
+                            <goal>bind</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
