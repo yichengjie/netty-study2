@@ -1,5 +1,6 @@
-package com.yicj.chapter11;
+package com.yicj.chapter11.codec;
 
+import com.yicj.chapter11.codec.entity.HttpXmlRequest;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.*;

@@ -1,4 +1,4 @@
-package com.yicj.chapter11;
+package com.yicj.chapter11.codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
