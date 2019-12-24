@@ -1,4 +1,4 @@
-package com.yicj.chapter11.test;
+package com.test;
 
 import org.jibx.runtime.IBindingFactory;
 
