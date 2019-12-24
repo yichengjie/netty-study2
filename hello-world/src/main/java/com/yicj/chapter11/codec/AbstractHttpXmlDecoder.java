@@ -7,15 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IUnmarshallingContext;
-import org.jibx.runtime.JiBXException;
-
 import java.io.StringReader;
 import java.nio.charset.Charset;
-import java.util.List;
 
 @Slf4j
-public class AbstractHttpXmlDecoder<T> extends MessageToMessageDecoder<T> {
-
+public abstract class AbstractHttpXmlDecoder<T> extends MessageToMessageDecoder<T> {
     private IBindingFactory factory ;
     private StringReader reader ;
     private Class<?> clazz ;
@@ -43,9 +39,12 @@ public class AbstractHttpXmlDecoder<T> extends MessageToMessageDecoder<T> {
         return result ;
     }
 
-
     @Override
-    protected void decode(ChannelHandlerContext ctx, T t, List<Object> list) throws Exception {
-
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        //释放资源
+        if(reader != null){
+            reader.close();
+            reader = null ;
+        }
     }
 }

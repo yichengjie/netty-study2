@@ -14,7 +14,7 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 //client使用
-public class AbstractHttpXmlEncoder<T> extends MessageToMessageEncoder<T> {
+public abstract class AbstractHttpXmlEncoder<T> extends MessageToMessageEncoder<T> {
     private IBindingFactory factory = null ;
     private StringWriter writer = null ;
     final static String CHARSET_NAME = "UTF-8" ;
@@ -34,7 +34,7 @@ public class AbstractHttpXmlEncoder<T> extends MessageToMessageEncoder<T> {
     }
 
     @Override
-    protected void encode(ChannelHandlerContext channelHandlerContext, T t, List<Object> list) throws Exception {
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         //释放资源
         if(writer != null){
             writer.close();
