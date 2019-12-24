@@ -1,9 +1,8 @@
 package com.yicj.chapter11;
 
-import com.yicj.chapter11.codec.HttpXmlRequestDecoder;
-import com.yicj.chapter11.codec.HttpXmlResponseEncoder;
+import com.yicj.chapter11.codec.server.HttpXmlRequestDecoder;
+import com.yicj.chapter11.codec.server.HttpXmlResponseEncoder;
 import com.yicj.chapter11.entity.Order;
-import com.yicj.chapter7_1.EchoServer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -37,7 +36,7 @@ public class HttpXmlServer {
                     //
                     p.addLast("http-encoder",new HttpResponseEncoder()) ;
                     p.addLast("xml-encoder",new HttpXmlResponseEncoder()) ;
-                    p.addLast(new HttpXmlServerHandler()) ;
+                    p.addLast("xmlServerHandler", new HttpXmlServerHandler()) ;
                 }
             }) ;
             //绑定端口，同步等待成功

@@ -1,5 +1,6 @@
-package com.yicj.chapter11.codec;
+package com.yicj.chapter11.codec.server;
 
+import com.yicj.chapter11.codec.AbstractHttpXmlDecoder;
 import com.yicj.chapter11.codec.entity.HttpXmlRequest;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
@@ -11,7 +12,7 @@ import java.util.List;
 
 import static io.netty.handler.codec.http.HttpHeaderNames.CONTENT_TYPE;
 
-public class HttpXmlRequestDecoder extends AbstractHttpXmlDecoder<FullHttpRequest>{
+public class HttpXmlRequestDecoder extends AbstractHttpXmlDecoder<FullHttpRequest> {
 
     public HttpXmlRequestDecoder(Class<?> clazz) {
        this(clazz,false) ;
@@ -23,7 +24,6 @@ public class HttpXmlRequestDecoder extends AbstractHttpXmlDecoder<FullHttpReques
 
     @Override
     protected void decode(ChannelHandlerContext ctx, FullHttpRequest arg1, List<Object> list) throws Exception {
-
         if(!arg1.decoderResult().isSuccess()){
             sendError(ctx,HttpResponseStatus.BAD_REQUEST);
             return;

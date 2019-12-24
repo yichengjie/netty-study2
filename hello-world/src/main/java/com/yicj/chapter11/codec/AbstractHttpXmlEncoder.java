@@ -13,6 +13,7 @@ import java.io.StringWriter;
 import java.nio.charset.Charset;
 import java.util.List;
 
+//client使用
 public class AbstractHttpXmlEncoder<T> extends MessageToMessageEncoder<T> {
     private IBindingFactory factory = null ;
     private StringWriter writer = null ;

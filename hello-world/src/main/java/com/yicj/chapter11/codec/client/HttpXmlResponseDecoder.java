@@ -1,11 +1,12 @@
-package com.yicj.chapter11.codec;
+package com.yicj.chapter11.codec.client;
 
+import com.yicj.chapter11.codec.AbstractHttpXmlDecoder;
 import com.yicj.chapter11.codec.entity.HttpXmlResponse;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
 
 import java.util.List;
-
+//client端使用
 public class HttpXmlResponseDecoder extends AbstractHttpXmlDecoder<DefaultFullHttpResponse> {
 
     public HttpXmlResponseDecoder(Class<?> clazz){

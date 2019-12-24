@@ -1,7 +1,7 @@
 package com.yicj.chapter11;
 
-import com.yicj.chapter11.codec.HttpXmlRequestEncoder;
-import com.yicj.chapter11.codec.HttpXmlResponseDecoder;
+import com.yicj.chapter11.codec.client.HttpXmlRequestEncoder;
+import com.yicj.chapter11.codec.client.HttpXmlResponseDecoder;
 import com.yicj.chapter11.entity.Order;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
