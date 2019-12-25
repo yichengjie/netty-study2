@@ -9,9 +9,7 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class MyProtocolClient {
 
     public void connect(int port, String host) throws InterruptedException {

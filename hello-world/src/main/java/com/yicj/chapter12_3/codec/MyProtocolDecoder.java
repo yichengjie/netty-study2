@@ -1,6 +1,6 @@
 package com.yicj.chapter12_3.codec;
 
-import com.yicj.chapter12_1.entity.MyProtocolBean;
+import com.yicj.chapter12_3.entity.MyProtocolBean;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
@@ -32,11 +32,8 @@ public class MyProtocolDecoder extends LengthFieldBasedFrameDecoder {
         if(in.readableBytes() < HEADER_SIZE){
             throw new Exception("字节数不足") ;
         }
-        //读取type字段
         byte type = in.readByte() ;
-        //读取flag字段
         byte flag = in.readByte() ;
-        //读取length字段
         int length = in.readInt() ;
         if(in.readableBytes() != length){
             throw new Exception("标记的长度不符合实际长度") ;

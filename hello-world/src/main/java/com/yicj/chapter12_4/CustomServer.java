@@ -35,6 +35,7 @@ public class CustomServer {
             b.localAddress(new InetSocketAddress(port));
             b.handler(new LoggingHandler(LogLevel.INFO)) ;
             b.childHandler(new ChannelInitializer<SocketChannel>() {
+                @Override
                 protected void initChannel(SocketChannel ch) throws Exception {
                     ChannelPipeline pipeline = ch.pipeline();
                     CustomDecoder decoder = new CustomDecoder(MAX_FRAME_LENGTH, LENGTH_FIELD_OFFSET,

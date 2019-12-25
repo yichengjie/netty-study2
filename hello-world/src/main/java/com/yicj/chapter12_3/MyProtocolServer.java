@@ -50,7 +50,7 @@ public class MyProtocolServer {
             }) ;
             //绑定端口，同步等待成功
             ChannelFuture f = b.bind(port).sync();
-            //同步等待服务端监听端口关闭
+            System.out.println("Server start listen at " + port);
             f.channel().closeFuture().sync() ;
         }finally {
             //优雅退出，释放线程池资源
