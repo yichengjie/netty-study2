@@ -12,6 +12,7 @@
     <artifactId>hello-world</artifactId>
     <properties>
         <jibx.version>1.2.6</jibx.version>
+        <jboss-marshalling.version>2.0.5.Final</jboss-marshalling.version>
     </properties>
 
     <dependencies>
@@ -27,12 +28,6 @@
             <version>${jibx.version}</version>
         </dependency>
 
-        <!--<dependency>
-            <groupId>org.jibx</groupId>
-            <artifactId>jibx-extras</artifactId>
-            <version>${jibx.version}</version>
-        </dependency>-->
-
         <dependency>
             <groupId>org.jibx</groupId>
             <artifactId>jibx-bind</artifactId>
@@ -45,12 +40,18 @@
             <version>${jibx.version}</version>
         </dependency>
 
-        <!--
+        <!-- jboss 序列化 start -->
         <dependency>
-            <groupId>org.jibx</groupId>
-            <artifactId>jibx-schema</artifactId>
-            <version>${jibx.version}</version>
-        </dependency>-->
+            <groupId>org.jboss.marshalling</groupId>
+            <artifactId>jboss-marshalling</artifactId>
+            <version>${jboss-marshalling.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.marshalling</groupId>
+            <artifactId>jboss-marshalling-serial</artifactId>
+            <version>${jboss-marshalling.version}</version>
+        </dependency>
+        <!-- jboss 序列化 end -->
     </dependencies>
 
     <build>
