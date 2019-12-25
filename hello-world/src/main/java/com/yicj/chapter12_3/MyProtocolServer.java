@@ -3,6 +3,8 @@ package com.yicj.chapter12_3;
 import com.yicj.chapter12_3.codec.MyProtocolDecoder;
 import com.yicj.chapter12_3.entity.MyProtocolBean;
 import com.yicj.chapter12_3.handler.MyProtocolServerHandler;
+import com.yicj.chapter12_4.codec.CustomDecoder;
+import com.yicj.chapter12_4.handler.CustomServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -43,6 +45,7 @@ public class MyProtocolServer {
                             LENGTH_FIELD_LENGTH,LENGTH_ADJUSTMENT,INITIAL_BYTES_TO_STRIP,false) ;
                     pipeline.addLast(decoder) ;
                     pipeline.addLast(new MyProtocolServerHandler()) ;
+
                 }
             }) ;
             //绑定端口，同步等待成功

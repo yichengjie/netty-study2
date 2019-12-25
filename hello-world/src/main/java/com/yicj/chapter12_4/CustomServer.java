@@ -36,9 +36,9 @@ public class CustomServer {
             b.handler(new LoggingHandler(LogLevel.INFO)) ;
             b.childHandler(new ChannelInitializer<SocketChannel>() {
                 protected void initChannel(SocketChannel ch) throws Exception {
-                    CustomDecoder decoder = new CustomDecoder(MAX_FRAME_LENGTH, LENGTH_FIELD_LENGTH,
-                            LENGTH_FIELD_OFFSET, LENGTH_ADJUSTMENT, INITIAL_BYTES_TO_STRIP, false);
                     ChannelPipeline pipeline = ch.pipeline();
+                    CustomDecoder decoder = new CustomDecoder(MAX_FRAME_LENGTH, LENGTH_FIELD_OFFSET,
+                            LENGTH_FIELD_LENGTH, LENGTH_ADJUSTMENT, INITIAL_BYTES_TO_STRIP, false);
                     pipeline.addLast(decoder);
                     pipeline.addLast(new CustomServerHandler());
                 }
