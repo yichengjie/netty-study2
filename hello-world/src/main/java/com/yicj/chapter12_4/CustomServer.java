@@ -20,14 +20,8 @@ public class CustomServer {
     private static final int LENGTH_FIELD_OFFSET = 2;  
     private static final int LENGTH_ADJUSTMENT = 0;  
     private static final int INITIAL_BYTES_TO_STRIP = 0;  
-  
-    private int port;  
-      
-    public CustomServer(int port) {  
-        this.port = port;  
-    }  
-      
-    public void start(){  
+
+    public void bind(int port){
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);  
         EventLoopGroup workerGroup = new NioEventLoopGroup();  
         try {  
@@ -54,6 +48,6 @@ public class CustomServer {
       
     public static void main(String[] args) throws Exception {  
         int port = 8080;
-        new CustomServer(port).start();
+        new CustomServer().bind(port);
     }
 }
