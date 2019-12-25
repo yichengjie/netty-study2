@@ -12,14 +12,8 @@ public class MyProtocolClientHandler extends ChannelHandlerAdapter {
         byte type = 0xA;
         byte flag = 0xC;
         int length = "Hello,Netty".length();
-        String content = "Hello,Netty";
-        MyProtocolBean bean = new MyProtocolBean(type, flag, length, content);
+        String body = "Hello,Netty";
+        MyProtocolBean bean = new MyProtocolBean(type, flag, length, body);
         ctx.writeAndFlush(bean);
-    }
-
-    @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        log.error("Unexpected exception from downstream ", cause);
-        ctx.close();
     }
 }

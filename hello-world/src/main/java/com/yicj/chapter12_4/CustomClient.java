@@ -21,8 +21,9 @@ public class CustomClient {
             b.handler(new ChannelInitializer<SocketChannel>() {
                 @Override
                 public void initChannel(SocketChannel ch) throws Exception {
-                    ch.pipeline().addLast(new CustomEncoder());
-                    ch.pipeline().addLast(new CustomClientHandler());
+                    ChannelPipeline p = ch.pipeline();
+                    p.addLast(new CustomEncoder());
+                    p.addLast(new CustomClientHandler());
                 }
             });
             ChannelFuture future = b.connect(host, port).sync();

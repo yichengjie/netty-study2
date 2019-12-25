@@ -12,6 +12,8 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import lombok.extern.slf4j.Slf4j;
 
+import java.net.InetSocketAddress;
+
 @Slf4j
 public class MyProtocolServer {
 
@@ -23,13 +25,15 @@ public class MyProtocolServer {
 
     public void bind(int port) throws InterruptedException {
         //配置服务端的NIO线程组
-        EventLoopGroup bossGroup = new NioEventLoopGroup();
+        EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workGroup = new NioEventLoopGroup();
         try {
             ServerBootstrap b = new ServerBootstrap() ;
             b.group(bossGroup,workGroup) ;
             b.channel(NioServerSocketChannel.class) ;
-            b.option(ChannelOption.SO_BACKLOG,100) ;
+            b.option(ChannelOption.SO_BACKLOG,128) ;
+            b.childOption(ChannelOption.SO_KEEPALIVE, true);
+            b.localAddress(new InetSocketAddress(port));
             b.handler(new LoggingHandler(LogLevel.INFO)) ;
             b.childHandler(new ChannelInitializer<SocketChannel>(){
                 @Override

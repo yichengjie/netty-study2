@@ -22,16 +22,17 @@ public class MyProtocolClient {
             b.option(ChannelOption.TCP_NODELAY,true) ;
             b.handler(new ChannelInitializer<SocketChannel>() {
                 @Override
-                protected void initChannel(SocketChannel ch) throws Exception {
+                public void initChannel(SocketChannel ch) throws Exception {
                     ChannelPipeline p = ch.pipeline();
                     p.addLast(new MyProtocolEncoder()) ;
                     p.addLast(new MyProtocolClientHandler()) ;
                 }
             }) ;
             //发起异步连接操作，并同步等待连接成功
-            ChannelFuture f = b.connect(host, port).sync();
+            ChannelFuture future = b.connect(host, port).sync();
+            future.channel().writeAndFlush("Hello Netty Server ,I am a common client");
             //同步等待客户端链路关闭
-            f.channel().closeFuture().sync() ;
+            future.channel().closeFuture().sync() ;
         }finally {
             //优雅退出，释放NIO线程组
             group.shutdownGracefully();
