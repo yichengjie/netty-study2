@@ -7,7 +7,11 @@ import io.netty.channel.ChannelHandlerContext;
 public class CustomClientHandler extends ChannelHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        CustomMsg customMsg = new CustomMsg((byte) 0xAB, (byte) 0xCD, "Hello,Netty".length(), "Hello,Netty");
+        byte type = (byte) 0xAB ;
+        byte flag = (byte) 0xCD ;
+        int length = "Hello,Netty".length() ;
+        String body = "Hello,Netty" ;
+        CustomMsg customMsg = new CustomMsg(type,flag,length,body);
         ctx.writeAndFlush(customMsg);
     }
 

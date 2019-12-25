@@ -14,7 +14,6 @@ public class MyProtocolClientHandler extends ChannelHandlerAdapter {
         int length = "Hello,Netty".length();
         String content = "Hello,Netty";
         MyProtocolBean bean = new MyProtocolBean(type, flag, length, content);
-        log.info("=============> channelActive write :{}", bean);
         ctx.writeAndFlush(bean);
     }
 

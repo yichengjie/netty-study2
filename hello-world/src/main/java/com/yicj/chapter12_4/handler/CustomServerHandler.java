@@ -11,7 +11,7 @@ public class CustomServerHandler extends SimpleChannelInboundHandler<Object> {
     protected void messageReceived(ChannelHandlerContext ctx, Object msg) throws Exception {
         if (msg instanceof CustomMsg) {
             CustomMsg customMsg = (CustomMsg) msg;
-            log.info("Client->Server:" + ctx.channel().remoteAddress() + " send " + customMsg.getBody());
+            log.info("Client->Server:" + ctx.channel().remoteAddress() + " send {}" , customMsg.getBody());
         }
     }
 }
