@@ -10,10 +10,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class NettMessageEncoder extends MessageToMessageEncoder<NettyMessage> {
+public class NettyMessageEncoder extends MessageToMessageEncoder<NettyMessage> {
     private MarshallingEncoder marshallingEncoder ;
 
-    public NettMessageEncoder() throws IOException {
+    public NettyMessageEncoder() throws IOException {
         this.marshallingEncoder = new MarshallingEncoder() ;
     }
     @Override
