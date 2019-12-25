@@ -26,24 +26,31 @@ public class NettyServer {
         //配置服务端NIO的线程组
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-        ServerBootstrap b = new ServerBootstrap() ;
-        b.group(bossGroup,workerGroup) ;
-        b.channel(NioServerSocketChannel.class) ;
-        b.option(ChannelOption.SO_BACKLOG,100) ;
-        b.handler(new LoggingHandler(LogLevel.INFO)) ;
-        b.childHandler(new ChannelInitializer<SocketChannel>() {
-            @Override
-            protected void initChannel(SocketChannel ch) throws Exception {
-                ChannelPipeline p = ch.pipeline();
-                p.addLast(new NettyMessageDecoder(1024 * 1024 , 4, 4)) ;
-                p.addLast(new NettyMessageEncoder()) ;
-                p.addLast("readTimeoutHandler", new ReadTimeoutHandler(50)) ;
-                p.addLast(new LoginAuthRespHandler()) ;
-                p.addLast("heartBeatHandler",new HeartBeatRespHandler()) ;
-            }
-        }) ;
-        //绑定端口，同步等待成功
-        b.bind(NettyConstant.REMOTEIP, NettyConstant.PORT).sync();
-        log.info("Netty server start ok :  {} : {}" , NettyConstant.REMOTEIP , NettyConstant.PORT );
+        try {
+            ServerBootstrap b = new ServerBootstrap() ;
+            b.group(bossGroup,workerGroup) ;
+            b.channel(NioServerSocketChannel.class) ;
+            b.option(ChannelOption.SO_BACKLOG,100) ;
+            b.handler(new LoggingHandler(LogLevel.INFO)) ;
+            b.childHandler(new ChannelInitializer<SocketChannel>() {
+                @Override
+                protected void initChannel(SocketChannel ch) throws Exception {
+                    ChannelPipeline p = ch.pipeline();
+                    p.addLast(new NettyMessageDecoder(1024 * 1024 , 4, 4)) ;
+                    p.addLast(new NettyMessageEncoder()) ;
+                    p.addLast("readTimeoutHandler", new ReadTimeoutHandler(50)) ;
+                    p.addLast(new LoginAuthRespHandler()) ;
+                    p.addLast("heartBeatHandler",new HeartBeatRespHandler()) ;
+                }
+            }) ;
+            //绑定端口，同步等待成功
+            ChannelFuture f = b.bind(NettyConstant.REMOTEIP, NettyConstant.PORT).sync();
+            log.info("Netty server start ok :  {} : {}" , NettyConstant.REMOTEIP , NettyConstant.PORT );
+            //同步等待服务端监听端口关闭
+            f.channel().closeFuture().sync() ;
+        }finally {
+            bossGroup.shutdownGracefully() ;
+            workerGroup.shutdownGracefully() ;
+        }
     }
 }

@@ -13,13 +13,10 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 
 import java.net.InetSocketAddress;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class NettyClient {
-    private ScheduledExecutorService executor = Executors.newScheduledThreadPool(1) ;
-    private EventLoopGroup group = new NioEventLoopGroup() ;
+    //private ScheduledExecutorService executor = Executors.newScheduledThreadPool(1) ;
+
 
     public static void main(String[] args) throws InterruptedException {
         new NettyClient().connect(NettyConstant.PORT, NettyConstant.REMOTEIP);
@@ -27,6 +24,7 @@ public class NettyClient {
 
     public void connect(int port, String host) throws InterruptedException {
         //配置客户端NIO线程组
+        EventLoopGroup group = new NioEventLoopGroup() ;
         try {
             Bootstrap b = new Bootstrap() ;
             b.group(group) ;
@@ -46,10 +44,13 @@ public class NettyClient {
             //发起异步连接操作
             InetSocketAddress address1 = new InetSocketAddress(host, port);
             InetSocketAddress address2 = new InetSocketAddress(NettyConstant.LOCALIP, NettyConstant.LOCAL_PORT);
-            ChannelFuture future = b.connect(address1, address2).sync();
+            ChannelFuture f = b.connect(address1, address2).sync();
+            //同步等待客户端链路关闭
+            f.channel().closeFuture().sync() ;
         }finally {
+            group.shutdownGracefully() ;
             //所有的资源释放之后，清空资源，再次发起重连操作
-            executor.execute(new Runnable() {
+            /*executor.execute(new Runnable() {
                 @Override
                 public void run() {
                     try {
@@ -63,7 +64,7 @@ public class NettyClient {
                         e.printStackTrace();
                     }
                 }
-            });
+            });*/
         }
     }
 
