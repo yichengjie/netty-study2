@@ -2,6 +2,7 @@ package com.yicj.chapter12_4;
 
 import com.yicj.chapter12_4.codec.CustomDecoder;
 import com.yicj.chapter12_4.entity.CustomMsg;
+import com.yicj.chapter12_4.handler.CustomServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -35,7 +36,7 @@ public class CustomServer {
                           
                         protected void initChannel(SocketChannel ch) throws Exception {  
                              ch.pipeline().addLast(new CustomDecoder(MAX_FRAME_LENGTH,LENGTH_FIELD_LENGTH,LENGTH_FIELD_OFFSET,LENGTH_ADJUSTMENT,INITIAL_BYTES_TO_STRIP,false));
-                             ch.pipeline().addLast(new CustomServerHandler());  
+                             ch.pipeline().addLast(new CustomServerHandler());
                         };  
                           
                     }).option(ChannelOption.SO_BACKLOG, 128)     
@@ -52,23 +53,7 @@ public class CustomServer {
     }  
       
     public static void main(String[] args) throws Exception {  
-        int port;  
-        if (args.length > 0) {  
-            port = Integer.parseInt(args[0]);  
-        } else {  
-            port = 8080;  
-        }  
-        new CustomServer(port).start();  
+        int port = 8080;
+        new CustomServer(port).start();
     }
-
-
-    class CustomServerHandler extends SimpleChannelInboundHandler<Object> {
-        @Override
-        protected void messageReceived(ChannelHandlerContext ctx, Object msg) throws Exception {
-            if(msg instanceof CustomMsg) {
-                CustomMsg customMsg = (CustomMsg)msg;
-                log.info("Client->Server:"+ctx.channel().remoteAddress()+" send "+ customMsg.getBody());
-            }
-        }
-    }
-}  
+}

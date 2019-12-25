@@ -16,9 +16,11 @@ public class MyProtocolEncoder extends MessageToByteEncoder<MyProtocolBean> {
         if(msg == null){
             throw new Exception("msg is null") ;
         }
+        String body = msg.getBody();
+        byte[] bodyBytes = body.getBytes(Charset.forName("UTF-8")) ;
         out.writeByte(msg.getType()) ;
         out.writeByte(msg.getFlag()) ;
         out.writeInt(msg.getLength()) ;
-        out.writeBytes(msg.getContent().getBytes(Charset.forName("UTF-8"))) ;
+        out.writeBytes(bodyBytes) ;
     }
 }

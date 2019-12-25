@@ -2,6 +2,7 @@ package com.yicj.chapter12_3;
 
 import com.yicj.chapter12_3.codec.MyProtocolDecoder;
 import com.yicj.chapter12_3.entity.MyProtocolBean;
+import com.yicj.chapter12_3.handler.MyProtocolServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -34,9 +35,10 @@ public class MyProtocolServer {
                 @Override
                 protected void initChannel(SocketChannel ch) throws Exception {
                     ChannelPipeline pipeline = ch.pipeline();
-                    MyProtocolDecoder decoder = new MyProtocolDecoder();
+                    MyProtocolDecoder decoder = new MyProtocolDecoder(MAX_FRAME_LENGTH,LENGTH_FIELD_OFFSET,
+                            LENGTH_FIELD_LENGTH,LENGTH_ADJUSTMENT,INITIAL_BYTES_TO_STRIP,false) ;
                     pipeline.addLast(decoder) ;
-                    pipeline.addLast(new EchoServerHandler()) ;
+                    pipeline.addLast(new MyProtocolServerHandler()) ;
                 }
             }) ;
             //绑定端口，同步等待成功
@@ -47,20 +49,6 @@ public class MyProtocolServer {
             //优雅退出，释放线程池资源
             bossGroup.shutdownGracefully() ;
             workGroup.shutdownGracefully() ;
-        }
-    }
-
-    class EchoServerHandler extends ChannelHandlerAdapter {
-        @Override
-        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-            MyProtocolBean bean = (MyProtocolBean) msg;
-            log.info("content : {}", bean.getContent());
-        }
-
-        @Override
-        public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-            log.error("exception : " , cause);
-            ctx.close() ;
         }
     }
 

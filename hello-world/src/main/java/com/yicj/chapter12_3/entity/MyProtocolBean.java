@@ -13,5 +13,5 @@ public class MyProtocolBean {
     //内容长度
     private int length ;
     //内容
-    private String content ;
+    private String body ;
 }

@@ -1,7 +1,7 @@
 package com.yicj.chapter12_3;
 
 import com.yicj.chapter12_3.codec.MyProtocolEncoder;
-import com.yicj.chapter12_3.entity.MyProtocolBean;
+import com.yicj.chapter12_3.handler.MyProtocolClientHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -25,7 +25,7 @@ public class MyProtocolClient {
                 protected void initChannel(SocketChannel ch) throws Exception {
                     ChannelPipeline p = ch.pipeline();
                     p.addLast(new MyProtocolEncoder()) ;
-                    p.addLast(new EchoClientHandler()) ;
+                    p.addLast(new MyProtocolClientHandler()) ;
                 }
             }) ;
             //发起异步连接操作，并同步等待连接成功
@@ -38,26 +38,7 @@ public class MyProtocolClient {
         }
     }
 
-    class EchoClientHandler extends ChannelHandlerAdapter {
-        @Override
-        public void channelActive(ChannelHandlerContext ctx) throws Exception {
-            byte type = 0xA ;
-            byte flag = 0xC ;
-            int length = "Hello,Netty".length() ;
-            String content = "Hello,Netty" ;
-            MyProtocolBean bean = new MyProtocolBean(type,flag,length,content) ;
-            log.info("=============> channelActive write :{}", bean);
-            ctx.writeAndFlush(bean) ;
-        }
 
-
-
-        @Override
-        public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-            log.error("Unexpected exception from downstream ", cause);
-            ctx.close() ;
-        }
-    }
 
     public static void main(String[] args) throws InterruptedException {
         int port = 8080 ;

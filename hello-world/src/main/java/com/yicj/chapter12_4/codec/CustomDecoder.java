@@ -20,8 +20,7 @@ public class CustomDecoder extends LengthFieldBasedFrameDecoder {
      */  
     public CustomDecoder(int maxFrameLength, int lengthFieldOffset, int lengthFieldLength,  
             int lengthAdjustment, int initialBytesToStrip, boolean failFast) {  
-        super(maxFrameLength, lengthFieldOffset, lengthFieldLength,  
-                lengthAdjustment, initialBytesToStrip, failFast);  
+        super(maxFrameLength, lengthFieldOffset, lengthFieldLength, lengthAdjustment, initialBytesToStrip, failFast);
     }  
       
     @Override  
