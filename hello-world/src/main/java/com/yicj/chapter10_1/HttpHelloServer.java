@@ -27,7 +27,7 @@ public class HttpHelloServer {
                 protected void initChannel(SocketChannel ch) throws Exception {
                     ChannelPipeline p = ch.pipeline();
                     p.addLast("http-decoder",new HttpRequestDecoder()) ;
-                    p.addLast("http-s",new HttpObjectAggregator(65536)) ;
+                    p.addLast("http-aggregator",new HttpObjectAggregator(65536)) ;
                     p.addLast("http-encoder",new HttpResponseEncoder()) ;
                     p.addLast("http-chunked",new ChunkedWriteHandler()) ;
                     p.addLast("fileServerHandler",new HttpHelloServerHandler()) ;

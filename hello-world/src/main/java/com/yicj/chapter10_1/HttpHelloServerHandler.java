@@ -22,8 +22,8 @@ public class HttpHelloServerHandler extends SimpleChannelInboundHandler<FullHttp
     //消息接入方法
     @Override
     protected void messageReceived(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
-        //this.sendError(ctx,HttpResponseStatus.METHOD_NOT_ALLOWED);
-        this.sendChunkfile(ctx,request);
+        this.sendError(ctx,HttpResponseStatus.METHOD_NOT_ALLOWED);
+        //this.sendChunkfile(ctx,request);
     }
 
     @Override
