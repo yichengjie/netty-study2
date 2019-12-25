@@ -25,6 +25,7 @@ public class NettyClient {
             b.group(group) ;
             b.channel(NioSocketChannel.class) ;
             b.option(ChannelOption.TCP_NODELAY,true) ;
+            b.option(ChannelOption.CONNECT_TIMEOUT_MILLIS,3000) ;
             b.handler(new ChannelInitializer<SocketChannel>() {
                 @Override
                 protected void initChannel(SocketChannel ch) throws Exception {
@@ -34,7 +35,7 @@ public class NettyClient {
                 }
             }) ;
             ChannelFuture future = b.connect(HOST, PORT).sync();
-            future.channel().writeAndFlush("Hello Netty Server, I am a common client") ;
+            //future.channel().writeAndFlush("Hello Netty Server, I am a common client") ;
             future.channel().closeFuture().sync() ;
         }finally {
             group.shutdownGracefully() ;
@@ -50,6 +51,11 @@ public class NettyClient {
             String content = "Hello,Netty" ;
             MyProtocolBean bean = new MyProtocolBean(type,flag,length,content) ;
             ctx.writeAndFlush(bean) ;
+        }
+
+        @Override
+        public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+            cause.printStackTrace();
         }
     }
 }
