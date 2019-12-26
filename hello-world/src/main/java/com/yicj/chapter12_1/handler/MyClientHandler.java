@@ -14,9 +14,4 @@ public class MyClientHandler extends ChannelHandlerAdapter {
         MyProtocolBean bean = new MyProtocolBean(type, flag, length, content);
         ctx.writeAndFlush(bean);
     }
-
-    @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        cause.printStackTrace();
-    }
 }

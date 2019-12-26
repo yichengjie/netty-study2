@@ -10,6 +10,6 @@ public class MyServerHandler extends ChannelHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         MyProtocolBean bean = (MyProtocolBean) msg;
-        log.info("content : {}", bean.getBody());
+        log.info("msg : {}", bean);
     }
 }
