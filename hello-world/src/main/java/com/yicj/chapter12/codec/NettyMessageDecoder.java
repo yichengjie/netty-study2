@@ -6,11 +6,13 @@ import com.yicj.chapter12.util.MarshallingDecoder;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 public class NettyMessageDecoder extends LengthFieldBasedFrameDecoder {
     private MarshallingDecoder marshallingDecoder ;
 
@@ -22,6 +24,7 @@ public class NettyMessageDecoder extends LengthFieldBasedFrameDecoder {
 
     @Override
     protected Object decode(ChannelHandlerContext ctx, ByteBuf in) throws Exception {
+        log.info("==================================> ");
         ByteBuf frame = (ByteBuf) super.decode(ctx,in) ;
         if(frame == null){
             return null ;

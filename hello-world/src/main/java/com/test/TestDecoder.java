@@ -5,6 +5,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.embedded.EmbeddedChannel;
+import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +51,6 @@ public class TestDecoder {
             channel.writeInbound(buf) ;
         }
     }
-
     class MyChannelInitializer extends ChannelInitializer{
         private LengthFieldBasedFrameDecoder spliter ;
         private MyChannelInitializer(LengthFieldBasedFrameDecoder spliter){

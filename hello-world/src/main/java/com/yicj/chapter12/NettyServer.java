@@ -2,7 +2,6 @@ package com.yicj.chapter12;
 
 import com.yicj.chapter12.codec.NettyMessageDecoder;
 import com.yicj.chapter12.codec.NettyMessageEncoder;
-import com.yicj.chapter12.entity.NettyConstant;
 import com.yicj.chapter12.handler.HeartBeatRespHandler;
 import com.yicj.chapter12.handler.LoginAuthRespHandler;
 import io.netty.bootstrap.ServerBootstrap;
@@ -19,10 +18,10 @@ import lombok.extern.slf4j.Slf4j;
 public class NettyServer {
 
     public static void main(String[] args) throws InterruptedException {
-        new NettyServer().bind();
+        new NettyServer().bind(8080);
     }
 
-    public void bind() throws InterruptedException {
+    public void bind(int port) throws InterruptedException {
         //配置服务端NIO的线程组
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -44,8 +43,8 @@ public class NettyServer {
                 }
             }) ;
             //绑定端口，同步等待成功
-            ChannelFuture f = b.bind(NettyConstant.REMOTEIP, NettyConstant.PORT).sync();
-            log.info("Netty server start ok :  {} : {}" , NettyConstant.REMOTEIP , NettyConstant.PORT );
+            ChannelFuture f = b.bind(port).sync();
+            log.info("Netty server start ok :  {} " , port);
             //同步等待服务端监听端口关闭
             f.channel().closeFuture().sync() ;
         }finally {

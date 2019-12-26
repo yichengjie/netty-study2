@@ -3,25 +3,27 @@ package com.yicj.chapter12.codec;
 import com.yicj.chapter12.entity.NettyMessage;
 import com.yicj.chapter12.util.MarshallingEncoder;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.MessageToMessageEncoder;
+import io.netty.handler.codec.MessageToByteEncoder;
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
-public class NettyMessageEncoder extends MessageToMessageEncoder<NettyMessage> {
+@Slf4j
+public class NettyMessageEncoder extends MessageToByteEncoder<NettyMessage> {
     private MarshallingEncoder marshallingEncoder ;
 
     public NettyMessageEncoder() throws IOException {
         this.marshallingEncoder = new MarshallingEncoder() ;
     }
+
     @Override
-    protected void encode(ChannelHandlerContext ctx, NettyMessage msg, List<Object> list) throws Exception {
+    protected void encode(ChannelHandlerContext ctx, NettyMessage msg, ByteBuf sendBuf) throws Exception {
         if(msg == null || msg.getHeader() == null){
             throw new Exception("The encode message is null") ;
         }
-        ByteBuf sendBuf = Unpooled.buffer() ;
+        log.info("msg ==========> {}" , msg);
         sendBuf.writeInt(msg.getHeader().getCrcCode()) ;
         sendBuf.writeInt(msg.getHeader().getLength()) ;
         sendBuf.writeLong(msg.getHeader().getSessionID()) ;
@@ -43,4 +45,5 @@ public class NettyMessageEncoder extends MessageToMessageEncoder<NettyMessage> {
             sendBuf.setIndex(4,sendBuf.readableBytes()) ;
         }
     }
+
 }

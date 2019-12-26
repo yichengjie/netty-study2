@@ -52,6 +52,12 @@
             <version>${jboss-marshalling.version}</version>
         </dependency>
         <!-- jboss 序列化 end -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

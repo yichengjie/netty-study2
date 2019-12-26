@@ -2,7 +2,6 @@ package com.yicj.chapter12;
 
 import com.yicj.chapter12.codec.NettyMessageEncoder;
 import com.yicj.chapter12.codec.NettyMessageDecoder;
-import com.yicj.chapter12.entity.NettyConstant;
 import com.yicj.chapter12.handler.HeartBeatReqHandler;
 import com.yicj.chapter12.handler.LoginAuthReqHandler;
 import io.netty.bootstrap.Bootstrap;
@@ -17,12 +16,11 @@ import java.net.InetSocketAddress;
 public class NettyClient {
     //private ScheduledExecutorService executor = Executors.newScheduledThreadPool(1) ;
 
-
     public static void main(String[] args) throws InterruptedException {
-        new NettyClient().connect(NettyConstant.PORT, NettyConstant.REMOTEIP);
+        new NettyClient().connect("127.0.0.1",8080);
     }
 
-    public void connect(int port, String host) throws InterruptedException {
+    public void connect(String host,int port) throws InterruptedException {
         //配置客户端NIO线程组
         EventLoopGroup group = new NioEventLoopGroup() ;
         try {
@@ -42,9 +40,7 @@ public class NettyClient {
                 }
             }) ;
             //发起异步连接操作
-            InetSocketAddress address1 = new InetSocketAddress(host, port);
-            InetSocketAddress address2 = new InetSocketAddress(NettyConstant.LOCALIP, NettyConstant.LOCAL_PORT);
-            ChannelFuture f = b.connect(address1, address2).sync();
+            ChannelFuture f = b.connect(host,port).sync();
             //同步等待客户端链路关闭
             f.channel().closeFuture().sync() ;
         }finally {
