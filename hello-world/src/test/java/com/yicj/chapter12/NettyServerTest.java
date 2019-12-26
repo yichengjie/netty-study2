@@ -1,6 +1,7 @@
 package com.yicj.chapter12;
 
 import com.yicj.chapter12.codec.NettyMessageDecoder;
+import com.yicj.chapter12.codec.NettyMessageEncoder;
 import com.yicj.chapter12.entity.Header;
 import com.yicj.chapter12.entity.MessageType;
 import com.yicj.chapter12.entity.NettyMessage;
@@ -27,6 +28,7 @@ public class NettyServerTest {
             protected void initChannel(Channel ch) throws Exception {
                 ChannelPipeline p = ch.pipeline();
                 p.addLast(decoder) ;
+                p.addLast(new NettyMessageEncoder()) ;
             }
         } ;
         NettyMessage msg = this.buildLoginReq() ;
@@ -40,8 +42,23 @@ public class NettyServerTest {
         sendBuf.writeInt(msg.getHeader().getAttachment().size()) ;
         sendBuf.writeInt(0) ;
         //sendBuf.setIndex(4,sendBuf.readableBytes()) ;
+        //这里注意需要去掉前8个字节，上面的代码会报错
         sendBuf.setInt(4, sendBuf.readableBytes() - 8);
         channel.writeInbound(sendBuf) ;
+    }
+
+    @Test
+    public void testServerEncoder(){
+        ChannelInitializer initializer  = new ChannelInitializer() {
+            @Override
+            protected void initChannel(Channel ch) throws Exception {
+                ChannelPipeline p = ch.pipeline();
+                p.addLast(new NettyMessageEncoder()) ;
+            }
+        } ;
+        NettyMessage msg = this.buildLoginReq() ;
+        EmbeddedChannel channel = new EmbeddedChannel(initializer) ;
+        channel.writeOutbound(msg) ;
     }
 
 
