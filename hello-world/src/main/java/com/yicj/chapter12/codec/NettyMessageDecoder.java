@@ -24,32 +24,31 @@ public class NettyMessageDecoder extends LengthFieldBasedFrameDecoder {
 
     @Override
     protected Object decode(ChannelHandlerContext ctx, ByteBuf in) throws Exception {
-        log.info("==================================> ");
         ByteBuf frame = (ByteBuf) super.decode(ctx,in) ;
         if(frame == null){
             return null ;
         }
         NettyMessage message = new NettyMessage() ;
         Header header = new Header() ;
-        header.setCrcCode(in.readInt());
-        header.setLength(in.readInt());
-        header.setSessionID(in.readLong());
-        header.setType(in.readByte());
-        header.setPriority(in.readByte());
-        int size = in.readInt() ;
+        header.setCrcCode(frame.readInt());
+        header.setLength(frame.readInt());
+        header.setSessionID(frame.readLong());
+        header.setType(frame.readByte());
+        header.setPriority(frame.readByte());
+        int size = frame.readInt() ;
         if(size > 0){
             Map<String,Object> attch = new HashMap<>(size) ;
             for(int i = 0 ; i < size ; i++){
-                int keySize = in.readInt() ;
+                int keySize = frame.readInt() ;
                 byte [] keyArray = new byte[keySize] ;
-                in.readBytes(keyArray) ;
+                frame.readBytes(keyArray) ;
                 String key = new String(keyArray,"UTF-8") ;
-                attch.put(key,marshallingDecoder.decode(in)) ;
+                attch.put(key,marshallingDecoder.decode(frame)) ;
             }
             header.setAttachment(attch);
         }
-        if(in.readableBytes() > 4){
-            message.setBody(marshallingDecoder.decode(in));
+        if(frame.readableBytes() > 4){
+            message.setBody(marshallingDecoder.decode(frame));
         }
         message.setHeader(header);
         return message ;

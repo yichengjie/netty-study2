@@ -10,7 +10,6 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.embedded.EmbeddedChannel;
-import io.netty.channel.socket.SocketChannel;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -40,7 +39,8 @@ public class NettyServerTest {
         sendBuf.writeByte(msg.getHeader().getPriority()) ;
         sendBuf.writeInt(msg.getHeader().getAttachment().size()) ;
         sendBuf.writeInt(0) ;
-        sendBuf.setIndex(4,sendBuf.readableBytes()) ;
+        //sendBuf.setIndex(4,sendBuf.readableBytes()) ;
+        sendBuf.setInt(4, sendBuf.readableBytes() - 8);
         channel.writeInbound(sendBuf) ;
     }
 
