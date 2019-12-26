@@ -1,7 +1,7 @@
 package com.yicj.chapter12_1;
 
-import com.yicj.chapter12_1.codec.MyProtocolEncoder;
-import com.yicj.chapter12_1.handler.ClientHandler;
+import com.yicj.chapter12_1.codec.MyNettyEncoder;
+import com.yicj.chapter12_1.handler.MyClientHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -9,9 +9,9 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
 
-public class NettyClient {
+public class MyNettyClient {
     public static void main(String[] args) throws InterruptedException {
-        new NettyClient().connect(8080,"127.0.0.1");
+        new MyNettyClient().connect(8080,"127.0.0.1");
     }
 
     public void connect(int port, String host) throws InterruptedException {
@@ -26,8 +26,8 @@ public class NettyClient {
                 @Override
                 protected void initChannel(SocketChannel ch) throws Exception {
                     ChannelPipeline p = ch.pipeline();
-                    p.addLast(new MyProtocolEncoder()) ;
-                    p.addLast(new ClientHandler()) ;
+                    p.addLast(new MyNettyEncoder()) ;
+                    p.addLast(new MyClientHandler()) ;
                 }
             }) ;
             ChannelFuture future = b.connect(host, port).sync();

@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.nio.charset.Charset;
 
 @Slf4j
-public class MyProtocolEncoder extends MessageToByteEncoder<MyProtocolBean> {
+public class MyNettyEncoder extends MessageToByteEncoder<MyProtocolBean> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, MyProtocolBean msg, ByteBuf out) throws Exception {

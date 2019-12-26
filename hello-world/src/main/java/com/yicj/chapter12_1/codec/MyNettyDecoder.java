@@ -5,7 +5,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 
-public class MyProtocolDecoder extends LengthFieldBasedFrameDecoder {
+public class MyNettyDecoder extends LengthFieldBasedFrameDecoder {
     private static final int HEADER_SIZE = 6 ;
     /**
      * @param maxFrameLength  帧的最大长度
@@ -15,8 +15,8 @@ public class MyProtocolDecoder extends LengthFieldBasedFrameDecoder {
      * @param initialBytesToStrip 解析时候跳过多少个长度
      * @param failFast 为true，当frame长度超过maxFrameLength时立即报TooLongFrameException异常，为false，读取完整个帧再报异
      */
-    public MyProtocolDecoder(int maxFrameLength, int lengthFieldOffset,
-        int lengthFieldLength, int lengthAdjustment, int initialBytesToStrip, boolean failFast) {
+    public MyNettyDecoder(int maxFrameLength, int lengthFieldOffset,
+                          int lengthFieldLength, int lengthAdjustment, int initialBytesToStrip, boolean failFast) {
         super(maxFrameLength, lengthFieldOffset, lengthFieldLength, lengthAdjustment, initialBytesToStrip, failFast);
     }
 
