@@ -18,6 +18,7 @@ public class HttpXmlRequestEncoder extends AbstractHttpXmlEncoder<HttpXmlRequest
         if(request == null){
             request = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1,
                     HttpMethod.GET,"/do", body) ;
+
             HttpHeaders headers = request.headers() ;
             InetAddress localHost = InetAddress.getLocalHost();
             headers.set(HttpHeaderNames.HOST,localHost.getHostAddress()) ;
