@@ -1,6 +1,6 @@
 package com.yicj.chapter12_1.codec;
 
-import com.yicj.chapter12_1.entity.MyProtocolBean;
+import com.yicj.chapter12_3.entity.MyProtocolBean;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
@@ -20,6 +20,6 @@ public class MyProtocolEncoder extends MessageToByteEncoder<MyProtocolBean> {
         out.writeByte(msg.getType()) ;
         out.writeByte(msg.getFlag()) ;
         out.writeInt(msg.getLength()) ;
-        out.writeBytes(msg.getContent().getBytes(Charset.forName("UTF-8"))) ;
+        out.writeBytes(msg.getBody().getBytes(Charset.forName("UTF-8"))) ;
     }
 }

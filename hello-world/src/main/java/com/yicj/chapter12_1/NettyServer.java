@@ -1,7 +1,7 @@
 package com.yicj.chapter12_1;
 
 import com.yicj.chapter12_1.codec.MyProtocolDecoder;
-import com.yicj.chapter12_1.entity.MyProtocolBean;
+import com.yicj.chapter12_1.handler.ServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -65,13 +65,6 @@ public class NettyServer {
     }
 
 
-    class ServerHandler extends ChannelHandlerAdapter{
-        @Override
-        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-            MyProtocolBean bean = (MyProtocolBean) msg;
-            log.info("content : {}", bean.getContent());
-        }
-    }
 
 
 }
