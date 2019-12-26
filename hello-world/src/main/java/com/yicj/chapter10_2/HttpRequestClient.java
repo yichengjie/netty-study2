@@ -22,7 +22,7 @@ public class HttpRequestClient {
 
     public static void main(String[] args) throws Exception {
         String host = "127.0.0.1" ;
-        int port = 9090 ;
+        int port = 8989 ;
         new HttpRequestClient().connect(host, port) ;
     }
     public void connect(String host,int port) throws Exception {
@@ -58,7 +58,8 @@ public class HttpRequestClient {
     class HttpRequestClientHandler extends ChannelHandlerAdapter{
         @Override
         public void channelActive(ChannelHandlerContext ctx) throws Exception {
-            URI uri = new URI("/hello-boot/getUserInfo") ;
+            //URI uri = new URI("/hello-boot/getUserInfo") ;
+            URI uri = new URI("/") ;
             String content = "hello, world";
             FullHttpRequest req = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.POST,
                     uri.toASCIIString(), Unpooled.copiedBuffer(content.getBytes("UTF-8")));
@@ -105,7 +106,7 @@ public class HttpRequestClient {
             }
             if (msg instanceof HttpContent) {
                 HttpContent content = (HttpContent) msg;
-                System.err.print(content.content().toString(CharsetUtil.UTF_8));
+                System.err.println(content.content().toString(CharsetUtil.UTF_8));
                 System.err.flush();
                 if (content instanceof LastHttpContent) {
                     System.err.println("} END OF CONTENT");
