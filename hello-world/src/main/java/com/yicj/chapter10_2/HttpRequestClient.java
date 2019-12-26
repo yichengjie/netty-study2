@@ -9,19 +9,20 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.http.*;
 import io.netty.handler.stream.ChunkedWriteHandler;
+import io.netty.util.CharsetUtil;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.util.List;
+import java.util.Set;
 
 @Slf4j
 public class HttpRequestClient {
 
     public static void main(String[] args) throws Exception {
-        String url = "http://localhost:9090" ;
-        URI uri = new URI(url) ;
-        String host = uri.getHost();
-        int port = uri.getPort();
-        log.info("host :{}, port : {}",host,port);
+        String host = "127.0.0.1" ;
+        int port = 9090 ;
         new HttpRequestClient().connect(host, port) ;
     }
     public void connect(String host,int port) throws Exception {
@@ -37,7 +38,7 @@ public class HttpRequestClient {
                 protected void initChannel(SocketChannel ch) throws Exception {
                     ChannelPipeline p = ch.pipeline();
                     p.addLast("http-encoder",new HttpResponseDecoder()) ;//入站
-                    p.addLast("http-aggregator",new HttpObjectAggregator(65536)) ;
+                    //p.addLast("http-aggregator",new HttpObjectAggregator(65536)) ;
                     p.addLast("http-decoder",new HttpRequestEncoder()) ;//出站
                     p.addLast("http-chunked",new ChunkedWriteHandler()) ;//出站
                     p.addLast("http-decompress",new HttpContentDecompressor()) ;
@@ -62,7 +63,9 @@ public class HttpRequestClient {
             FullHttpRequest req = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.POST,
                     uri.toASCIIString(), Unpooled.copiedBuffer(content.getBytes("UTF-8")));
             req.headers().set(HttpHeaderNames.HOST, "127.0.0.1");
-            HttpHeaderUtil.setKeepAlive(req,false);
+            req.headers().set(HttpHeaderNames.CONNECTION, HttpHeaderValues.CLOSE);
+            req.headers().set(HttpHeaderNames.ACCEPT_ENCODING, HttpHeaderValues.GZIP);
+            //HttpHeaderUtil.setKeepAlive(req,false);
             //req.headers().set(HttpHeaderNames.CONNECTION, HttpHeaderValues.KEEP_ALIVE);
             int length = req.content().readableBytes();
             req.headers().set(HttpHeaderNames.CONTENT_LENGTH,length+"");
@@ -75,6 +78,43 @@ public class HttpRequestClient {
 
         @Override
         public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+            parseCommonHttpResp(ctx, msg);
+        }
+
+        private void parseCommonHttpResp(ChannelHandlerContext ctx , Object msg){
+            if (msg instanceof HttpResponse) {
+                HttpResponse response = (HttpResponse) msg;
+                System.err.println("STATUS: " + response.status());
+                System.err.println("VERSION: " + response.protocolVersion());
+                System.err.println();
+                if (!response.headers().isEmpty()) {
+                    Set<CharSequence> names = response.headers().names();
+                    for (CharSequence name: names) {
+                        List<CharSequence> all = response.headers().getAll(name);
+                        for (CharSequence value: all) {
+                            System.err.println("HEADER: " + name + " = " + value);
+                        }
+                    }
+                    System.err.println();
+                }
+                if (HttpHeaderUtil.isTransferEncodingChunked(response)) {
+                    System.err.println("CHUNKED CONTENT {");
+                } else {
+                    System.err.println("CONTENT {");
+                }
+            }
+            if (msg instanceof HttpContent) {
+                HttpContent content = (HttpContent) msg;
+                System.err.print(content.content().toString(CharsetUtil.UTF_8));
+                System.err.flush();
+                if (content instanceof LastHttpContent) {
+                    System.err.println("} END OF CONTENT");
+                    ctx.close();
+                }
+            }
+        }
+
+        private void parseAggregatorHttpResp(Object msg) throws UnsupportedEncodingException {
             FullHttpResponse response = (FullHttpResponse) msg ;
             log.info("response info : {}" , response);
             ByteBuf content = response.content();
@@ -83,5 +123,6 @@ public class HttpRequestClient {
             String respContent = new String(bytes,"UTF-8") ;
             log.info("respContent : {}" ,respContent);
         }
+
     }
 }
