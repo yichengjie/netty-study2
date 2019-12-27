@@ -4,8 +4,16 @@ import com.yicj.chapter11.entity.Address;
 import com.yicj.chapter11.entity.Customer;
 import com.yicj.chapter11.entity.Order;
 import com.yicj.chapter11.entity.Shipping;
+import com.yicj.common.Common;
 
 public class OrderFacoty {
+
+    public static void main(String[] args) {
+        Order order = OrderFacoty.create(1001);
+        String jsonStr = Common.toJsonStr(order) ;
+        System.out.println(jsonStr);
+    }
+
     public static Order create(long orderId) {
         Order order = new Order() ;
         order.setOrderNumber(orderId);

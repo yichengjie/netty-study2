@@ -1,5 +1,7 @@
 package com.yicj.chapter11_2;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.yicj.chapter11.entity.Order;
 import com.yicj.chapter11_2.codec.client.HttpJsonRequestEncoder;
 import com.yicj.chapter11_2.codec.client.HttpJsonResponseDecoder;
@@ -15,6 +17,8 @@ import io.netty.handler.codec.http.HttpResponseDecoder;
 public class HttpJsonClient {
 
     public static void main(String[] args) throws InterruptedException {
+        //重复引用的全局配置关闭解决方式
+        JSON.DEFAULT_GENERATE_FEATURE |= SerializerFeature.DisableCircularReferenceDetect.getMask();
         String host = "127.0.0.1" ;
         int port = 8080 ;
         new HttpJsonClient().connect(host, port);

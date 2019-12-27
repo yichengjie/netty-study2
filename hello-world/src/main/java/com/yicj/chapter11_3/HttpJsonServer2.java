@@ -1,9 +1,7 @@
-package com.yicj.chapter11_2;
+package com.yicj.chapter11_3;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.yicj.chapter11.entity.Order;
-import com.yicj.chapter11_2.codec.server.HttpJsonRequestDecoder;
 import com.yicj.chapter11_2.codec.server.HttpJsonResponseEncoder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -15,13 +13,16 @@ import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import lombok.extern.slf4j.Slf4j;
 
-public class HttpJsonServer {
+
+@Slf4j
+public class HttpJsonServer2 {
 
     public static void main(String[] args) throws InterruptedException {
         //重复引用的全局配置关闭解决方式
         JSON.DEFAULT_GENERATE_FEATURE |= SerializerFeature.DisableCircularReferenceDetect.getMask();
-        new HttpJsonServer().bind(8080);
+        new HttpJsonServer2().bind(8080);
     }
 
     public void bind(int port) throws InterruptedException {
@@ -40,11 +41,10 @@ public class HttpJsonServer {
                     ChannelPipeline p = ch.pipeline();
                     p.addLast("http-decoder",new HttpRequestDecoder()) ;
                     p.addLast("http-aggregator",new HttpObjectAggregator(65536)) ;
-                    p.addLast("json-decoder",new HttpJsonRequestDecoder(Order.class,true)) ;
                     //
                     p.addLast("http-encoder",new HttpResponseEncoder()) ;
                     p.addLast("json-encoder",new HttpJsonResponseEncoder()) ;
-                    p.addLast("json-serverHandler", new HttpJsonServerHandler()) ;
+                    p.addLast("json-serverHandler", new HttpJsonServerHandler2()) ;
                 }
             }) ;
             //绑定端口，同步等待成功
@@ -57,4 +57,5 @@ public class HttpJsonServer {
             workGroup.shutdownGracefully() ;
         }
     }
+
 }

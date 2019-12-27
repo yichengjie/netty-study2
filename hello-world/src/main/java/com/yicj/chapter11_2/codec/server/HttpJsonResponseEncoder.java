@@ -19,7 +19,7 @@ public class HttpJsonResponseEncoder extends AbstractHttpJsonEncoder<HttpJsonRes
         }else {
             response = new DefaultFullHttpResponse(msg.getResponse().protocolVersion(),msg.getResponse().status(),body) ;
         }
-        response.headers().set(CONTENT_TYPE,"text/xml") ;
+        response.headers().set(CONTENT_TYPE,"application/json") ;
         HttpHeaderUtil.setContentLength(response,body.readableBytes());
         list.add(response) ;
     }
