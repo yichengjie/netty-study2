@@ -11,6 +11,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
+import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -39,10 +40,9 @@ public class HttpJsonServer2 {
                 @Override
                 protected void initChannel(SocketChannel ch) throws Exception {
                     ChannelPipeline p = ch.pipeline();
-                    p.addLast("http-decoder",new HttpRequestDecoder()) ;
+                    p.addLast("http-decoder",new HttpServerCodec()) ;
                     p.addLast("http-aggregator",new HttpObjectAggregator(65536)) ;
-                    //
-                    p.addLast("http-encoder",new HttpResponseEncoder()) ;
+                    //出站消息
                     p.addLast("json-encoder",new HttpJsonResponseEncoder()) ;
                     p.addLast("json-serverHandler", new HttpJsonServerHandler2()) ;
                 }

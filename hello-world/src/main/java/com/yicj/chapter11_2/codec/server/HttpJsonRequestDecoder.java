@@ -9,6 +9,8 @@ import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
 import java.util.List;
 
+//注意这里千万不要讲泛型的FullHttpResponse写成DefaultFullHttpResponse了，
+//否则这个Decoder不会被调用，这里是真实为AggregatedFullHttpResponse
 public class HttpJsonRequestDecoder extends AbstractHttpJsonDecoder<FullHttpRequest> {
     private Class<?> clazz ;
     public HttpJsonRequestDecoder(Class<?> clazz){

@@ -10,9 +10,8 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.http.HttpClientCodec;
 import io.netty.handler.codec.http.HttpObjectAggregator;
-import io.netty.handler.codec.http.HttpRequestEncoder;
-import io.netty.handler.codec.http.HttpResponseDecoder;
 
 public class HttpJsonClient {
 
@@ -38,11 +37,10 @@ public class HttpJsonClient {
                 protected void initChannel(SocketChannel ch) throws Exception {
                     ChannelPipeline p = ch.pipeline();
                     //在MessagePack解码器之前增加LengthFieldBasedFrameDecoder
-                    p.addLast("http-decoder",new HttpResponseDecoder()) ;
+                    p.addLast("http-decoder",new HttpClientCodec()) ;
                     p.addLast("http-aggregator", new HttpObjectAggregator(65536)) ;
                     p.addLast("json-decoder",new HttpJsonResponseDecoder(Order.class,true)) ;//XML解码器
                     //
-                    p.addLast("http-encoder", new HttpRequestEncoder()) ;
                     p.addLast("json-encoder", new HttpJsonRequestEncoder()) ;
                     p.addLast("json-clientHandler", new HttpJsonClientHandler()) ;
                 }
