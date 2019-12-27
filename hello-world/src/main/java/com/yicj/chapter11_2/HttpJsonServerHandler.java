@@ -24,17 +24,17 @@ public class HttpJsonServerHandler extends SimpleChannelInboundHandler<HttpJsonR
     protected void messageReceived(ChannelHandlerContext ctx, HttpJsonRequest jsonRequest) throws Exception {
         HttpRequest request = jsonRequest.getRequest() ;
         Order order = (Order) jsonRequest.getBody() ;
-        log.info("Http server receive request : " + order);
+        log.info("Http server receive request :{} " , order);
         doBusiness(order) ;
         ChannelFuture future = ctx.writeAndFlush(new HttpJsonResponse(null, order));
         if(!isKeepAlive(request)){
-            future.addListener(ChannelFutureListener.CLOSE) ;
+            future.addListener(ChannelFutureListener.CLOSE);
         }
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        log.info("====> ", cause);
+        log.error("====> ", cause);
         if(ctx.channel().isActive()){
             this.sendError(ctx,HttpResponseStatus.INTERNAL_SERVER_ERROR);
         }

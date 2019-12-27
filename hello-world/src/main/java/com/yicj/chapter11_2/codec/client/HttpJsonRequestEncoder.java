@@ -20,7 +20,7 @@ public class HttpJsonRequestEncoder extends AbstractHttpJsonEncoder<HttpJsonRequ
             HttpHeaders headers = request.headers() ;
             InetAddress localHost = InetAddress.getLocalHost();
             headers.set(HttpHeaderNames.HOST,localHost.getHostAddress()) ;
-            headers.set(HttpHeaderNames.CONNECTION,HttpHeaderValues.CLOSE) ;
+            //headers.set(HttpHeaderNames.CONNECTION,HttpHeaderValues.CLOSE) ;
             headers.set(HttpHeaderNames.ACCEPT_ENCODING,HttpHeaderValues.GZIP.toString()+","
                 + HttpHeaderValues.DEFLATE.toString()) ;
             headers.set(HttpHeaderNames.ACCEPT_CHARSET,"ISO-8859-1,utf-8,q=0.7,*;q=0.7") ;

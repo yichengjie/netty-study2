@@ -13,6 +13,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
+import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
@@ -38,11 +39,12 @@ public class HttpJsonServer {
                 @Override
                 protected void initChannel(SocketChannel ch) throws Exception {
                     ChannelPipeline p = ch.pipeline();
-                    p.addLast("http-decoder",new HttpRequestDecoder()) ;
+                    p.addLast("http-server-codec", new HttpServerCodec()) ;
+                    //p.addLast("http-decoder",new HttpRequestDecoder()) ;
                     p.addLast("http-aggregator",new HttpObjectAggregator(65536)) ;
                     p.addLast("json-decoder",new HttpJsonRequestDecoder(Order.class,true)) ;
                     //
-                    p.addLast("http-encoder",new HttpResponseEncoder()) ;
+                    //p.addLast("http-encoder",new HttpResponseEncoder()) ;
                     p.addLast("json-encoder",new HttpJsonResponseEncoder()) ;
                     p.addLast("json-serverHandler", new HttpJsonServerHandler()) ;
                 }

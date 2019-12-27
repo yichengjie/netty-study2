@@ -24,6 +24,7 @@ public class HttpJsonClientHandler extends SimpleChannelInboundHandler<HttpJsonR
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        cause.printStackTrace();
         ctx.close() ;
     }
 }
