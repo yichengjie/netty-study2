@@ -15,6 +15,10 @@ import io.netty.handler.logging.LoggingHandler;
 
 public class HttpJsonServer {
 
+    public static void main(String[] args) throws InterruptedException {
+        new HttpJsonServer().bind(8080);
+    }
+
     public void bind(int port) throws InterruptedException {
         //配置服务端的NIO线程组
         EventLoopGroup bossGroup = new NioEventLoopGroup();

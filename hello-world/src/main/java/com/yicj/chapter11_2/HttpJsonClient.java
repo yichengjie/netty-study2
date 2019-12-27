@@ -12,6 +12,13 @@ import io.netty.handler.codec.http.HttpRequestEncoder;
 import io.netty.handler.codec.http.HttpResponseDecoder;
 
 public class HttpJsonClient {
+
+    public static void main(String[] args) throws InterruptedException {
+        String host = "127.0.0.1" ;
+        int port = 8080 ;
+        new HttpJsonClient().connect(host, port);
+    }
+
     public void connect(String host, int port) throws InterruptedException {
         //配置客户端NIO线程组
         EventLoopGroup group = new NioEventLoopGroup();
