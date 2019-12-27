@@ -1,5 +1,6 @@
 package com.yicj.chapter11_2;
 
+import com.yicj.chapter11.entity.Order;
 import com.yicj.chapter11_2.codec.server.HttpJsonRequestDecoder;
 import com.yicj.chapter11_2.codec.server.HttpJsonResponseEncoder;
 import io.netty.bootstrap.ServerBootstrap;
@@ -35,7 +36,7 @@ public class HttpJsonServer {
                     ChannelPipeline p = ch.pipeline();
                     p.addLast("http-decoder",new HttpRequestDecoder()) ;
                     p.addLast("http-aggregator",new HttpObjectAggregator(65536)) ;
-                    p.addLast("json-decoder",new HttpJsonRequestDecoder(true)) ;
+                    p.addLast("json-decoder",new HttpJsonRequestDecoder(Order.class,true)) ;
                     //
                     p.addLast("http-encoder",new HttpResponseEncoder()) ;
                     p.addLast("json-encoder",new HttpJsonResponseEncoder()) ;

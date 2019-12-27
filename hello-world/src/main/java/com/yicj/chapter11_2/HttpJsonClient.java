@@ -1,5 +1,6 @@
 package com.yicj.chapter11_2;
 
+import com.yicj.chapter11.entity.Order;
 import com.yicj.chapter11_2.codec.client.HttpJsonRequestEncoder;
 import com.yicj.chapter11_2.codec.client.HttpJsonResponseDecoder;
 import io.netty.bootstrap.Bootstrap;
@@ -35,7 +36,7 @@ public class HttpJsonClient {
                     //在MessagePack解码器之前增加LengthFieldBasedFrameDecoder
                     p.addLast("http-decoder",new HttpResponseDecoder()) ;
                     p.addLast("http-aggregator", new HttpObjectAggregator(65536)) ;
-                    p.addLast("json-decoder",new HttpJsonResponseDecoder(true)) ;//XML解码器
+                    p.addLast("json-decoder",new HttpJsonResponseDecoder(Order.class,true)) ;//XML解码器
                     //
                     p.addLast("http-encoder", new HttpRequestEncoder()) ;
                     p.addLast("json-encoder", new HttpJsonRequestEncoder()) ;

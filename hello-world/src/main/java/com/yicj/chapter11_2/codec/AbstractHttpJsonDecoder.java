@@ -15,14 +15,13 @@ public abstract class AbstractHttpJsonDecoder<T> extends MessageToMessageDecoder
     protected AbstractHttpJsonDecoder(boolean isPrint){
         this.isPrint = isPrint ;
     }
-
     //从buf中转为对象
-    protected Object decode0(ByteBuf body) throws Exception {
+    protected Object decode0(Class<?> clazz, ByteBuf body) {
         String content = body.toString(UTF_8) ;
         if(isPrint){
             log.info("The body is : " + content);
         }
-        Object result = JSON.parse(content);
+        Object result = JSON.parseObject(content,clazz);
         return result ;
     }
 }

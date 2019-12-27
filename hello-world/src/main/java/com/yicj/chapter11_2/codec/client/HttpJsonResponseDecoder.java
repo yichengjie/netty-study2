@@ -8,14 +8,18 @@ import java.util.List;
 
 //client端使用
 public class HttpJsonResponseDecoder extends AbstractHttpJsonDecoder<DefaultFullHttpResponse> {
-
-    public HttpJsonResponseDecoder(boolean isPrint){
+    private Class<?> clazz ;
+    public HttpJsonResponseDecoder(Class<?> clazz){
+        this(clazz,false) ;
+    }
+    public HttpJsonResponseDecoder(Class<?> clazz,boolean isPrint){
         super(isPrint);
+        this.clazz = clazz ;
     }
 
     @Override
     protected void decode(ChannelHandlerContext ctx, DefaultFullHttpResponse msg, List<Object> list) throws Exception {
-        HttpXmlResponse response = new HttpXmlResponse(msg,decode0(msg.content())) ;
+        HttpXmlResponse response = new HttpXmlResponse(msg,decode0(clazz,msg.content())) ;
         list.add(response) ;
     }
 }

@@ -10,9 +10,13 @@ import io.netty.util.CharsetUtil;
 import java.util.List;
 
 public class HttpJsonRequestDecoder extends AbstractHttpJsonDecoder<FullHttpRequest> {
-
-    public HttpJsonRequestDecoder(boolean isPrint){
+    private Class<?> clazz ;
+    public HttpJsonRequestDecoder(Class<?> clazz){
+        this(clazz,false) ;
+    }
+    public HttpJsonRequestDecoder(Class<?> clazz, boolean isPrint){
         super(isPrint);
+        this.clazz = clazz ;
     }
 
     @Override
@@ -21,7 +25,7 @@ public class HttpJsonRequestDecoder extends AbstractHttpJsonDecoder<FullHttpRequ
             sendError(ctx,HttpResponseStatus.BAD_REQUEST);
             return;
         }
-        HttpJsonRequest request = new HttpJsonRequest(req,decode0(req.content())) ;
+        HttpJsonRequest request = new HttpJsonRequest(req,decode0(clazz,req.content())) ;
         list.add(request) ;
     }
 
