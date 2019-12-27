@@ -25,8 +25,8 @@ function func3(sock) {
     sock.write('\r\n');
 
     //第一行表示长度，第二行表示内容
-    sock.write('b\r\n');
-    sock.write('01234567890\r\n');
+    sock.write('c\r\n');
+    sock.write('01234\n567890\r\n');
     //第一行表示长度，第二行表示内容
     sock.write('5\r\n');
     sock.write('67867\r\n');
