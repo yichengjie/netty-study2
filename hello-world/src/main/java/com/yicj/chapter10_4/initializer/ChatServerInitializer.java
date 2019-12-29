@@ -1,4 +1,4 @@
-package com.yicj.chapter10_4;
+package com.yicj.chapter10_4.initializer;
 
 import com.yicj.chapter10_4.handler.HttpRequestHandler;
 import com.yicj.chapter10_4.handler.TextWebSocketFrameHandler;

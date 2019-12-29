@@ -1,5 +1,6 @@
 package com.yicj.chapter10_4;
 
+import com.yicj.chapter10_4.initializer.ChatServerInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -30,7 +31,7 @@ public class ChatServer {
         return future ;
     }
 
-    private ChannelHandler createInitializer(ChannelGroup channelGroup) {
+    protected ChannelHandler createInitializer(ChannelGroup channelGroup) {
         return  new ChatServerInitializer(channelGroup) ;
     }
 
@@ -43,7 +44,7 @@ public class ChatServer {
         group.shutdownGracefully() ;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         int port = 8080;
         final ChatServer endpoint = new ChatServer() ;
         ChannelFuture future = endpoint.start(new InetSocketAddress(port));
