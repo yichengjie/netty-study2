@@ -39,8 +39,9 @@ public class NettyMessageEncoder extends MessageToByteEncoder<NettyMessage> {
         }
         if (msg.getBody() != null) {
             marshallingEncoder.encode(msg.getBody(), sendBuf);
-        } else
+        } else{
             sendBuf.writeInt(0);
+        }
         sendBuf.setInt(4, sendBuf.readableBytes() - 8);
     }
 

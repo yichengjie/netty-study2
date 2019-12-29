@@ -5,13 +5,8 @@ import org.jboss.marshalling.ByteInput;
 
 import java.io.IOException;
 
-/**
- * {@link ByteInput} implementation which reads its data from a {@link ByteBuf}
- */
 public class ChannelBufferByteInput implements ByteInput {
-
     private final ByteBuf buffer;
-
     public ChannelBufferByteInput(ByteBuf buffer) {
         this.buffer = buffer;
     }

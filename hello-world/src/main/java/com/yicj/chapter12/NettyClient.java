@@ -34,6 +34,7 @@ public class NettyClient {
                     ChannelPipeline p = ch.pipeline();
                     p.addLast(new NettyMessageDecoder(1024 * 1024, 4,4 )) ;
                     p.addLast("MessageEncoder",new NettyMessageEncoder()) ;
+
                     p.addLast("readTimeoutHandler",new ReadTimeoutHandler(50)) ;
                     p.addLast("loginAuthHandler",new LoginAuthReqHandler()) ;
                     p.addLast("heartBeatHandler",new HeartBeatReqHandler()) ;
