@@ -1,6 +1,6 @@
-package com.yicj.chapter12_3.handler;
+package com.yicj.chapter12_1.handler;
 
-import com.yicj.chapter12_3.entity.MyProtocolBean;
+import com.yicj.chapter12_1.entity.MyProtocolBean;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 

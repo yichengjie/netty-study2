@@ -1,17 +1,11 @@
 package com.yicj.chapter11_1;
 
-import com.yicj.chapter11.HttpXmlServerHandler;
-import com.yicj.chapter11.codec.server.HttpXmlRequestDecoder;
-import com.yicj.chapter11.codec.server.HttpXmlResponseEncoder;
-import com.yicj.chapter11.entity.Order;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
-import io.netty.handler.codec.http.HttpRequestDecoder;
-import io.netty.handler.codec.http.HttpResponseEncoder;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;

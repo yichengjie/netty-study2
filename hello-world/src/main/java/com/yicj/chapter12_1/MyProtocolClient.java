@@ -1,9 +1,7 @@
-package com.yicj.chapter12_3;
+package com.yicj.chapter12_1;
 
-import com.yicj.chapter12_3.codec.MyProtocolEncoder;
-import com.yicj.chapter12_3.handler.MyProtocolClientHandler;
-import com.yicj.chapter12_4.codec.CustomEncoder;
-import com.yicj.chapter12_4.handler.CustomClientHandler;
+import com.yicj.chapter12_1.codec.MyProtocolEncoder;
+import com.yicj.chapter12_1.handler.MyProtocolClientHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;

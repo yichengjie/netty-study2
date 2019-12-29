@@ -1,4 +1,4 @@
-package com.yicj.chapter12_3.entity;
+package com.yicj.chapter12_1.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

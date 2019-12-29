@@ -29,8 +29,8 @@ public abstract class AbstractHttpXmlEncoder<T> extends MessageToMessageEncoder<
         String xmlStr = writer.toString() ;
         writer.close();
         writer = null ;
-        ByteBuf encodBuf = Unpooled.copiedBuffer(xmlStr,UTF_8) ;
-        return encodBuf ;
+        ByteBuf encodeBuf = Unpooled.copiedBuffer(xmlStr,UTF_8) ;
+        return encodeBuf ;
     }
 
     @Override

@@ -4,6 +4,10 @@ chapter4_1:添加LineBasedFrameDecoder和StringDecoder解决半包问题
 chapter7: 使用MessagePack编解码,注意使用MessagePack时序列化的对象一定要注解@Message,否则无法传递数据
 chapter7_1:使用LengthFieldPrepender、LengthFieldBasedFrameDecoder解决消息半包读取问题
 chapter10: Http文件服务器开发
+chapter11: http整合xml
+chapter11_1: websocket练习
+chapter12: 自定义协议实现
+chapter12_1: 简化版的自定义协议实现
 
 
 开发笔记：

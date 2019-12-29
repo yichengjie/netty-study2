@@ -1,6 +1,6 @@
-package com.yicj.chapter12_3.handler;
+package com.yicj.chapter12_1.handler;
 
-import com.yicj.chapter12_3.entity.MyProtocolBean;
+import com.yicj.chapter12_1.entity.MyProtocolBean;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;

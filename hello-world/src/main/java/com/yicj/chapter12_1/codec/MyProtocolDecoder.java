@@ -1,6 +1,6 @@
-package com.yicj.chapter12_3.codec;
+package com.yicj.chapter12_1.codec;
 
-import com.yicj.chapter12_3.entity.MyProtocolBean;
+import com.yicj.chapter12_1.entity.MyProtocolBean;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
