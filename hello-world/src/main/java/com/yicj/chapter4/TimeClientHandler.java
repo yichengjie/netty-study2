@@ -2,12 +2,12 @@ package com.yicj.chapter4;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class TimeClientHandler extends ChannelHandlerAdapter {
+public class TimeClientHandler extends ChannelInboundHandlerAdapter {
     private int counter ;
     private String lineSeparator = System.getProperty("line.separator");
     private byte [] req  ;

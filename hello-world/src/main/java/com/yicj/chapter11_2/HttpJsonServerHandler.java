@@ -16,12 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static io.netty.handler.codec.http.HttpHeaderNames.CONTENT_TYPE;
-import static io.netty.handler.codec.http.HttpHeaderUtil.isKeepAlive;
+import static io.netty.handler.codec.http.HttpUtil.isKeepAlive;
 
 @Slf4j
 public class HttpJsonServerHandler extends SimpleChannelInboundHandler<HttpJsonRequest> {
     @Override
-    protected void messageReceived(ChannelHandlerContext ctx, HttpJsonRequest jsonRequest) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, HttpJsonRequest jsonRequest) throws Exception {
         HttpRequest request = jsonRequest.getRequest() ;
         Order order = (Order) jsonRequest.getBody() ;
         log.info("Http server receive request :{} " , order);

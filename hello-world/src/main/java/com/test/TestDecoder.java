@@ -1,16 +1,12 @@
 package com.test;
 
-
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.embedded.EmbeddedChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
-import io.netty.handler.codec.string.StringDecoder;
 import lombok.extern.slf4j.Slf4j;
-
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 
 @Slf4j
 public class TestDecoder {
@@ -70,7 +66,7 @@ public class TestDecoder {
         }
     }
 
-    class StringProcessHandler extends ChannelHandlerAdapter {
+    class StringProcessHandler extends ChannelInboundHandlerAdapter {
         @Override
         public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
             ByteBuf buf = (ByteBuf)msg ;

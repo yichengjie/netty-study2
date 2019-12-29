@@ -5,9 +5,7 @@ import com.yicj.chapter11.codec.entity.HttpXmlResponse;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.*;
-
 import java.util.List;
-
 import static io.netty.handler.codec.http.HttpHeaderNames.CONTENT_TYPE;
 
 public class HttpXmlResponseEncoder extends AbstractHttpXmlEncoder<HttpXmlResponse> {
@@ -22,7 +20,7 @@ public class HttpXmlResponseEncoder extends AbstractHttpXmlEncoder<HttpXmlRespon
             response = new DefaultFullHttpResponse(msg.getResponse().protocolVersion(),msg.getResponse().status(),body) ;
         }
         response.headers().set(CONTENT_TYPE,"text/xml") ;
-        HttpHeaderUtil.setContentLength(response,body.readableBytes());
+        HttpUtil.setContentLength(response,body.readableBytes());
         list.add(response) ;
     }
 }

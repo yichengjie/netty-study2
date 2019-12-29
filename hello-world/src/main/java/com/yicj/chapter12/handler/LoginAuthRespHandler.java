@@ -3,16 +3,15 @@ package com.yicj.chapter12.handler;
 import com.yicj.chapter12.entity.Header;
 import com.yicj.chapter12.entity.MessageType;
 import com.yicj.chapter12.entity.NettyMessage;
-import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
-
 import java.net.InetSocketAddress;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
-public class LoginAuthRespHandler extends ChannelHandlerAdapter {
+public class LoginAuthRespHandler extends ChannelInboundHandlerAdapter {
     private Map<String,Boolean> nodeCheck = new ConcurrentHashMap<>() ;
     private String [] whiteList = {"127.0.0.1","192.168.1.104"} ;
 

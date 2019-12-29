@@ -5,6 +5,7 @@ import com.yicj.chapter12.entity.MessageType;
 import com.yicj.chapter12.entity.NettyMessage;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
 import org.jibx.binding.Run;
 
@@ -12,7 +13,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
-public class HeartBeatReqHandler extends ChannelHandlerAdapter {
+public class HeartBeatReqHandler extends ChannelInboundHandlerAdapter {
     private volatile ScheduledFuture<?> scheduledFuture ;
 
     @Override

@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MyProtocolServerHandler extends SimpleChannelInboundHandler<Object> {
     @Override
-    protected void messageReceived(ChannelHandlerContext ctx, Object msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
         if(msg instanceof MyProtocolBean){
             MyProtocolBean bean = (MyProtocolBean) msg;
             log.info("Client->Server:" + ctx.channel().remoteAddress() + " send {}", bean.getBody());

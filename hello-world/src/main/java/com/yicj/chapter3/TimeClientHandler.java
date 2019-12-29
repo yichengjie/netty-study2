@@ -4,10 +4,12 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandler;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class TimeClientHandler extends ChannelHandlerAdapter {
+public class TimeClientHandler extends ChannelInboundHandlerAdapter {
 
     private final ByteBuf firstMessage ;
 
@@ -16,6 +18,7 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
         firstMessage = Unpooled.buffer(req.length) ;
         firstMessage.writeBytes(req);
     }
+
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {

@@ -3,12 +3,12 @@ package com.yicj.chapter12.handler;
 import com.yicj.chapter12.entity.Header;
 import com.yicj.chapter12.entity.MessageType;
 import com.yicj.chapter12.entity.NettyMessage;
-import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class LoginAuthReqHandler extends ChannelHandlerAdapter {
+public class LoginAuthReqHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {

@@ -2,12 +2,12 @@ package com.yicj.chapter5;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class EchoServerHandler extends ChannelHandlerAdapter {
+public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     private int counter = 0 ;
 
     @Override

@@ -3,10 +3,11 @@ package com.yicj.chapter7_1;
 import com.yicj.chapter7.entity.UserInfo;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class EchoClientHandler extends ChannelHandlerAdapter {
+public class EchoClientHandler extends ChannelInboundHandlerAdapter {
     private int sendNumber ;
     private int count;
     public EchoClientHandler(int sendNumber){

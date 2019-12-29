@@ -13,15 +13,15 @@ import java.io.RandomAccessFile;
 
 import static io.netty.handler.codec.http.HttpHeaderNames.CONTENT_TYPE;
 import static io.netty.handler.codec.http.HttpHeaderNames.LOCATION;
-import static io.netty.handler.codec.http.HttpHeaderUtil.isKeepAlive;
-import static io.netty.handler.codec.http.HttpHeaderUtil.setContentLength;
+import static io.netty.handler.codec.http.HttpUtil.isKeepAlive;
+import static io.netty.handler.codec.http.HttpUtil.setContentLength;
 
 
 public class HttpHelloServerHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
 
     //消息接入方法
     @Override
-    protected void messageReceived(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, FullHttpRequest msg) throws Exception {
         this.sendError(ctx,HttpResponseStatus.METHOD_NOT_ALLOWED);
         //this.sendChunkfile(ctx,request);
     }
@@ -113,4 +113,5 @@ public class HttpHelloServerHandler extends SimpleChannelInboundHandler<FullHttp
         MimetypesFileTypeMap mimetypesTypeMap = new MimetypesFileTypeMap();
         response.headers().set(CONTENT_TYPE, mimetypesTypeMap.getContentType(file.getPath()));
     }
+
 }

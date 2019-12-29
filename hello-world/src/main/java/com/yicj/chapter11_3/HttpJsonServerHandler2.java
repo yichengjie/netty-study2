@@ -8,17 +8,17 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.FullHttpRequest;
-import io.netty.handler.codec.http.HttpHeaderUtil;
+import io.netty.handler.codec.http.HttpUtil;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 class HttpJsonServerHandler2 extends SimpleChannelInboundHandler<FullHttpRequest> {
         @Override
-        protected void messageReceived(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
+        protected void channelRead0(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
             log.info("req info : {}", request);
             Order order = OrderFacoty.create(123);
             ChannelFuture future = ctx.writeAndFlush(new HttpJsonResponse(null, order));
-            if(!HttpHeaderUtil.isKeepAlive(request)){
+            if(!HttpUtil.isKeepAlive(request)){
                 future.addListener(ChannelFutureListener.CLOSE) ;
             }
         }

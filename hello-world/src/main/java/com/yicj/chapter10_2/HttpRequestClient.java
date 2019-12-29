@@ -11,7 +11,6 @@ import io.netty.handler.codec.http.*;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.util.CharsetUtil;
 import lombok.extern.slf4j.Slf4j;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.util.List;
@@ -55,7 +54,7 @@ public class HttpRequestClient {
         }
     }
 
-    class HttpRequestClientHandler extends ChannelHandlerAdapter{
+    class HttpRequestClientHandler extends ChannelInboundHandlerAdapter{
         @Override
         public void channelActive(ChannelHandlerContext ctx) throws Exception {
             //URI uri = new URI("/hello-boot/getUserInfo") ;
@@ -89,16 +88,16 @@ public class HttpRequestClient {
                 System.err.println("VERSION: " + response.protocolVersion());
                 System.err.println();
                 if (!response.headers().isEmpty()) {
-                    Set<CharSequence> names = response.headers().names();
-                    for (CharSequence name: names) {
-                        List<CharSequence> all = response.headers().getAll(name);
+                    Set<String> names = response.headers().names();
+                    for (String name: names) {
+                        List<String> all = response.headers().getAll(name);
                         for (CharSequence value: all) {
                             System.err.println("HEADER: " + name + " = " + value);
                         }
                     }
                     System.err.println();
                 }
-                if (HttpHeaderUtil.isTransferEncodingChunked(response)) {
+                if (HttpUtil.isTransferEncodingChunked(response)) {
                     System.err.println("CHUNKED CONTENT {");
                 } else {
                     System.err.println("CONTENT {");

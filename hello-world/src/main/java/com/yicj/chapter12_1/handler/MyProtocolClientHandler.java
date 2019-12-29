@@ -3,8 +3,9 @@ package com.yicj.chapter12_1.handler;
 import com.yicj.chapter12_1.entity.MyProtocolBean;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 
-public class MyProtocolClientHandler extends ChannelHandlerAdapter {
+public class MyProtocolClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         byte type = (byte) 0xAB ;

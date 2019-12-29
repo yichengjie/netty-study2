@@ -1,7 +1,7 @@
 package com.yicj.chapter10;
 
 import static io.netty.handler.codec.http.HttpHeaderNames.*;
-import static io.netty.handler.codec.http.HttpHeaderUtil.*;
+import static io.netty.handler.codec.http.HttpUtil.*;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
@@ -46,7 +46,7 @@ public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpR
 
     //消息接入方法
     @Override
-    protected void messageReceived(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
         //对HTTP请求消息的解码结果进行判断
         if (!request.decoderResult().isSuccess()) {
             //如果解码失败直接构造400错误返回

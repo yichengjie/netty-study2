@@ -17,7 +17,7 @@ public class HttpJsonClientHandler extends SimpleChannelInboundHandler<HttpJsonR
     }
 
     @Override
-    protected void messageReceived(ChannelHandlerContext ctx, HttpJsonResponse msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, HttpJsonResponse msg) throws Exception {
         log.info("The client receive response of http header is : {}", msg.getResponse().headers().names());
         log.info("The client receive response of http body is : {}", msg.getResult());
     }

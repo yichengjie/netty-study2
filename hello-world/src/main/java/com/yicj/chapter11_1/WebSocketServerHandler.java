@@ -18,7 +18,7 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
     private WebSocketServerHandshaker handshaker ;
 
     @Override
-    protected void messageReceived(ChannelHandlerContext ctx, Object msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
         //传统的HTTP接入
         //第一次握手请求消息由http协议承载，所以它是一个http消息，执行handleHttpRequest方法处理
         //WebSocket握手请求。
@@ -91,11 +91,11 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
             ByteBuf buf = Unpooled.copiedBuffer(resp.status().toString(), CharsetUtil.UTF_8) ;
             resp.content().writeBytes(buf) ;
             buf.release() ;
-            HttpHeaderUtil.setContentLength(resp, resp.content().readableBytes());
+            HttpUtil.setContentLength(resp, resp.content().readableBytes());
         }
         //如果是非Keep-Alive,关闭连接
         ChannelFuture f = ctx.channel().writeAndFlush(resp);
-        if (!HttpHeaderUtil.isKeepAlive(req) || resp.status().code() != 200){
+        if (!HttpUtil.isKeepAlive(req) || resp.status().code() != 200){
             f.addListener(ChannelFutureListener.CLOSE) ;
         }
     }

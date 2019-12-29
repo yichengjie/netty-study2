@@ -11,20 +11,16 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
-import io.netty.util.concurrent.Future;
-import io.netty.util.concurrent.GenericFutureListener;
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static io.netty.handler.codec.http.HttpHeaderNames.CONTENT_TYPE;
-import static io.netty.handler.codec.http.HttpHeaderUtil.isKeepAlive;
+import static io.netty.handler.codec.http.HttpUtil.isKeepAlive;
 
 @Slf4j
 public class HttpXmlServerHandler  extends SimpleChannelInboundHandler<HttpXmlRequest> {
     @Override
-    protected void messageReceived(ChannelHandlerContext ctx, HttpXmlRequest xmlRequest) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, HttpXmlRequest xmlRequest) throws Exception {
         HttpRequest request = xmlRequest.getRequest() ;
         Order order = (Order) xmlRequest.getBody() ;
         log.info("Http server receive request : " + order);

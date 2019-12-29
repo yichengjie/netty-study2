@@ -31,7 +31,7 @@ public class HttpXmlRequestEncoder extends AbstractHttpXmlEncoder<HttpXmlRequest
             String accept = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" ;
             headers.set(HttpHeaderNames.ACCEPT,accept) ;
         }
-        HttpHeaderUtil.setContentLength(request,body.readableBytes());
+        HttpUtil.setContentLength(request,body.readableBytes());
         list.add(request) ;
     }
 }
