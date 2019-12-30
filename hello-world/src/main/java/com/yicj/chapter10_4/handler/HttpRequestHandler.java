@@ -47,10 +47,11 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                 send100Continue(ctx) ;
             }
             RandomAccessFile file = new RandomAccessFile(INDEX,"r") ;
-            HttpResponse response = new DefaultFullHttpResponse(
+            //注意这里new的是DefaultHttpResponse，千万不要写成DefaultFullHttpResponse了，否则一直无法返回
+            HttpResponse response = new DefaultHttpResponse(
               request.protocolVersion(), HttpResponseStatus.OK
             ) ;
-            request.headers().set(HttpHeaderNames.CONTENT_TYPE,"text/html;charset=UTF-8") ;
+            response.headers().set(HttpHeaderNames.CONTENT_TYPE,"text/html;charset=UTF-8") ;
             boolean keepAlive = HttpUtil.isKeepAlive(request);
             if(keepAlive){
                 response.headers().set(HttpHeaderNames.CONTENT_LENGTH,file.length()) ;

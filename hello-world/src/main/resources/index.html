@@ -8,12 +8,13 @@
 <body>
 <br>
 <script type="text/javascript">
+    var url =  'ws://' + location.host + '/ws' ;
     var socket;
     if (!window.WebSocket) {
         window.WebSocket = window.MozWebSocket;
     }
     if (window.WebSocket) {
-        socket = new WebSocket("ws://localhost:8080/websocket");
+        socket = new WebSocket(url);
         socket.onmessage = function(event) {
             var ta = document.getElementById('responseText');
             ta.value="";
