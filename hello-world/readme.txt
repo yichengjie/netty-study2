@@ -10,6 +10,9 @@ chapter12: 自定义协议实现
 chapter12_1: 简化版的自定义协议实现
 
 
+netty实战书源码地址：https://github.com/zzzvvvxxxd/netty-in-action-cn
+
+
 开发笔记：
     发现服务端能正常收到客户端的数据，但瞬间客户端就直接断开连接了，查了好久发现是
     代码写法：f.channel().closeFuture();后面漏掉了.sync() ;
