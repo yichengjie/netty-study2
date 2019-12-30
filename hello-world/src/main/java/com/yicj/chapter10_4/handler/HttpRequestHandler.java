@@ -24,6 +24,7 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                 .getCodeSource().getLocation() ;
         try {
             String path = location.toURI() +"index.html" ;
+            path = !path.contains("file") ? path : path.substring(5) ;
             INDEX = new File(path) ;
         }catch (URISyntaxException e){
             throw new IllegalStateException("Unable to locate index.html", e) ;
@@ -38,6 +39,7 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
     protected void channelRead0(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
         //如果http请求指向了地址为/ws的URI,那么FullHttpRequest将调用request.retain(),
         //并通过调用fireChannelRead(msg)方法将它转发给下一个ChannelInBoundHandler
+        log.info("request uri : {}", request.uri());
         if (wsUri.equalsIgnoreCase(request.uri())){
             ctx.fireChannelRead(request.retain()) ;
         }else {
