@@ -44,4 +44,40 @@ public class FixedLengthFrameDecoderTest {
         buf.release() ;
         log.info("read : {}",read);
     }
+
+    @Test
+    public void testFramesDecoded2(){
+        ByteBuf buf = Unpooled.buffer() ;
+        for (int i = 0 ; i< 9 ; i++){
+            buf.writeByte(i) ;
+        }
+        ByteBuf input = buf.duplicate() ;
+        FixedLengthFrameDecoder decoder = new FixedLengthFrameDecoder(3);
+        EmbeddedChannel channel = new EmbeddedChannel(decoder) ;
+        //返回false，因为没有一个完整的可供读取的帧
+        boolean writeFlag1 = channel.writeInbound(input.readBytes(2));
+        log.info("write flag1 : {}", writeFlag1);
+        boolean writeFlag2 = channel.writeInbound(input.readBytes(7));
+        log.info("write flag2 : {}", writeFlag2);
+        boolean finish = channel.finish();
+        log.info("finish : {}",finish);
+        ByteBuf read = channel.readInbound() ;
+        boolean eqFlag = buf.readSlice(3).equals(read);
+        read.release() ;
+        log.info("eq flag1 : {}",eqFlag);
+        //
+        read = channel.readInbound() ;
+        eqFlag = buf.readSlice(3).equals(read) ;
+        read.release() ;
+        log.info("eq flag2 : {}" ,eqFlag);
+        //
+        read = channel.readInbound() ;
+        eqFlag = buf.readSlice(3).equals(read) ;
+        read.release() ;
+        log.info("eq flag3 : {}", eqFlag);
+        //
+        read = channel.readInbound() ;
+        buf.release() ;
+        log.info("read : {}", read);
+    }
 }
