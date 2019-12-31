@@ -37,7 +37,7 @@ public class TimeClient {
 
     public static void main(String[] args) throws Exception {
         int port = 8080 ;
-        System.out.println("client is start ...");
+        System.out.println("common is start ...");
         new TimeClient().connect(port,"127.0.0.1");
     }
 }

@@ -9,7 +9,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         String body = (String) msg ;
-        log.info("Receive client : ["+msg+"]");
+        log.info("Receive common : ["+msg+"]");
     }
 
     @Override

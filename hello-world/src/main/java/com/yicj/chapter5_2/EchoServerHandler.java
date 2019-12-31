@@ -13,7 +13,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         String body = (String) msg ;
-        log.info("This is " + (++counter) +" times receive client : ["+body+"]");
+        log.info("This is " + (++counter) +" times receive common : ["+body+"]");
         ByteBuf echo = Unpooled.copiedBuffer(body.getBytes()) ;
         ctx.writeAndFlush(echo) ;
     }

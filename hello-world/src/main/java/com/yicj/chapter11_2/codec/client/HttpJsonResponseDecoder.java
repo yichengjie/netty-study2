@@ -24,7 +24,7 @@ public class HttpJsonResponseDecoder extends AbstractHttpJsonDecoder<FullHttpRes
 
     @Override
     protected void decode(ChannelHandlerContext ctx, FullHttpResponse msg, List<Object> list) throws Exception {
-        log.info("client decode : ==============> {}", msg.getClass().getName() );
+        log.info("common decode : ==============> {}", msg.getClass().getName() );
         HttpXmlResponse response = new HttpXmlResponse(msg,decode0(clazz,msg.content())) ;
         list.add(response) ;
     }

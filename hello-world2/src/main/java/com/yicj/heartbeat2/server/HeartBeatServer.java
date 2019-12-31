@@ -1,4 +1,4 @@
-package com.yicj.heartbeat2;
+package com.yicj.heartbeat2.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class HeartBeatServer {
+    private final AcceptorIdleStateTrigger idleStateTrigger = new AcceptorIdleStateTrigger() ;
 
     public static void main(String[] args) throws InterruptedException {
         new HeartBeatServer().start(8080);
@@ -28,6 +29,8 @@ public class HeartBeatServer {
 
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup() ;
+
+
         try {
             ServerBootstrap bootstrap = new ServerBootstrap() ;
             bootstrap.group(bossGroup,workerGroup) ;
@@ -40,6 +43,7 @@ public class HeartBeatServer {
                     ChannelPipeline pipeline = ch.pipeline();
                     pipeline.addLast(
                             new IdleStateHandler(5,0,0, TimeUnit.SECONDS)) ;
+                    pipeline.addLast(idleStateTrigger) ;
                     pipeline.addLast("decoder", new StringDecoder()) ;
                     pipeline.addLast("encoder",new StringEncoder()) ;
                     pipeline.addLast(new HeartBeatServerHandler()) ;

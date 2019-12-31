@@ -24,7 +24,7 @@ public class EchoClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println("this is client receive msg【  "+ ++count +"  】times:【"+msg+"】");
+        System.out.println("this is common receive msg【  "+ ++count +"  】times:【"+msg+"】");
         if(count<5){ //控制运行次数，因为不加这个控制直接调用下面代码的话，客户端和服务端会形成闭环循环，一直运行
             ctx.write(msg);
         }

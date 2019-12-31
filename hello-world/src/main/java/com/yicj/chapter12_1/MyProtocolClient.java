@@ -28,7 +28,7 @@ public class MyProtocolClient {
             }) ;
             //发起异步连接操作，并同步等待连接成功
             ChannelFuture future = b.connect(host, port).sync();
-            future.channel().writeAndFlush("Hello Netty Server ,I am a common client");
+            future.channel().writeAndFlush("Hello Netty Server ,I am a common common");
             //同步等待客户端链路关闭
             future.channel().closeFuture().sync() ;
         }finally {

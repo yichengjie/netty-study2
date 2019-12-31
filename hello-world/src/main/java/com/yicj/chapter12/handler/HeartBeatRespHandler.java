@@ -16,9 +16,9 @@ public class HeartBeatRespHandler extends ChannelInboundHandlerAdapter {
         NettyMessage message = (NettyMessage) msg ;
         //返回心跳应答消息
         if(message.getHeader() != null && message.getHeader().getType() == MessageType.HEARTBEAT_REQ.value()){
-            log.info("Receive client heart beat message : ----> {}",message);
+            log.info("Receive common heart beat message : ----> {}",message);
             NettyMessage heartBeat = buildHeartBeat() ;
-            log.info("Send heart beat response message to client : ---> {}",heartBeat);
+            log.info("Send heart beat response message to common : ---> {}",heartBeat);
             ctx.writeAndFlush(heartBeat) ;
         }else {
             ctx.fireChannelRead(msg) ;
