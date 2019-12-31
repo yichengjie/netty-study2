@@ -1,4 +1,4 @@
-package com.test;
+package com.yicj.chapter11;
 
 import org.jibx.binding.BindingGenerator;
 import org.jibx.binding.Compile;
