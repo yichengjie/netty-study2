@@ -1,6 +1,5 @@
-package com.yicj.idle;
+package com.yicj.heartbeat;
 
-import com.yicj.idle.handler.HeartBeatServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;

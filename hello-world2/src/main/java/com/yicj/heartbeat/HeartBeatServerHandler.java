@@ -1,4 +1,4 @@
-package com.yicj.idle.handler;
+package com.yicj.heartbeat;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

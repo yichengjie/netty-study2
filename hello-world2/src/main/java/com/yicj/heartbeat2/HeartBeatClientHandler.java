@@ -1,4 +1,4 @@
-package com.yicj.idle.handler;
+package com.yicj.heartbeat2;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
