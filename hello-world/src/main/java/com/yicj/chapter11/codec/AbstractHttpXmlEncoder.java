@@ -7,11 +7,8 @@ import io.netty.handler.codec.MessageToMessageEncoder;
 import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IMarshallingContext;
-import org.jibx.runtime.JiBXException;
-
 import java.io.StringWriter;
 import java.nio.charset.Charset;
-import java.util.List;
 
 //client使用
 public abstract class AbstractHttpXmlEncoder<T> extends MessageToMessageEncoder<T> {

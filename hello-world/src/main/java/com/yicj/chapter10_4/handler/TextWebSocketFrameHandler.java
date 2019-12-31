@@ -5,8 +5,10 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
+import lombok.extern.slf4j.Slf4j;
 
 //处理文本帧
+@Slf4j
 public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
 
     private final ChannelGroup group ;
@@ -32,6 +34,7 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextW
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) throws Exception {
+        log.info("TextWebSocketFrameHandler channelRead0 .....");
         group.writeAndFlush(msg.retain()) ;
     }
 }

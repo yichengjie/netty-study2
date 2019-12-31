@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>hello-world</artifactId>
+    <packaging>pom</packaging>
     <properties>
         <jibx.version>1.2.6</jibx.version>
         <jboss-marshalling.version>2.0.5.Final</jboss-marshalling.version>
