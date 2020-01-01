@@ -6,7 +6,7 @@ import java.net.InetSocketAddress;
 
 @Data
 public class LogEvent {
-    public static final byte SEPARATOR = (byte) ':' ;
+    public static final byte SEPARATOR = (byte) '$' ;
     private final InetSocketAddress source ;
     private final String logfile ;
     private final String msg ;

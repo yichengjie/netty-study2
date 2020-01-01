@@ -8,11 +8,13 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioDatagramChannel;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.net.InetSocketAddress;
 
+@Slf4j
 public class LogEventBroadcaster {
 
     private final EventLoopGroup group ;
@@ -34,6 +36,7 @@ public class LogEventBroadcaster {
         Channel ch = bootstrap.bind(0).sync().channel() ;
         long pointer = 0 ;
         for(;;){
+            //log.info("len : {} , pointer: {}",file.length(),pointer);
             long len = file.length() ;
             if(len < pointer){
                 //file was reset
