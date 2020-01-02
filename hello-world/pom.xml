@@ -10,10 +10,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>hello-world</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <properties>
         <jibx.version>1.2.6</jibx.version>
         <jboss-marshalling.version>2.0.5.Final</jboss-marshalling.version>
+        <protostuff.version>1.6.0</protostuff.version>
     </properties>
 
     <dependencies>
@@ -65,32 +66,19 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.58</version>
         </dependency>
-    </dependencies>
 
-    <build>
-        <plugins>
-            <plugin><!-- 生成jibx class信息 -->
-                <groupId>org.jibx</groupId>
-                <artifactId>jibx-maven-plugin</artifactId>
-                <version>1.2.6</version>
-                <configuration>
-                    <schemaBindingDirectory>${basedir}/target/classes/jibx</schemaBindingDirectory>
-                    <includeSchemaBindings>
-                        <includeSchemaBindings>*binding.xml</includeSchemaBindings>
-                    </includeSchemaBindings>
-                    <verbose>true</verbose>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>jibx-bind</id>
-                        <phase>compile</phase><!--把jibx绑定到了comile编译阶段 -->
-                        <goals>
-                            <goal>bind</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+
+        <dependency>
+            <groupId>io.protostuff</groupId>
+            <artifactId>protostuff-core</artifactId>
+            <version>${protostuff.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.protostuff</groupId>
+            <artifactId>protostuff-runtime</artifactId>
+            <version>${protostuff.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
