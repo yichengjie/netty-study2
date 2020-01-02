@@ -9,6 +9,7 @@ chapter11: http整合xml
 chapter11_1: websocket练习
 chapter12: 自定义协议实现
 chapter12_1: 简化版的自定义协议实现
+chapter9: 单元测试
 
 
 netty实战书源码地址：https://github.com/zzzvvvxxxd/netty-in-action-cn
