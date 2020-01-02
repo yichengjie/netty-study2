@@ -1,33 +1,17 @@
-package com.yicj.rpc.model;
+package com.yicj.rpc.common.protocal;
 
-/**
- * 
- * @author BazingaLyn
- * @description 网络传输的协议头信息
- * @time 2016年8月9日
- * @modifytime
- */
 public class LaopopoProtocol {
-	
 	/** 协议头长度 */
     public static final int HEAD_LENGTH = 16;
-	
 	/** Magic */
     public static final short MAGIC = (short) 0xbabe;
-    
     /** 发送的是请求信息*/
     public static final byte REQUEST_REMOTING = 1;
-    
     /** 发送的是响应信息*/
     public static final byte RESPONSE_REMOTING = 2;
-    
-    
     public static final byte RPC_REMOTING = 3;
-    
     public static final byte HANDLER_ERROR = -1;
-    
     public static final byte HANDLER_BUSY = -2;
-    
     //provider端向registry发送注册信息的code
     public static final byte PUBLISH_SERVICE = 65;
     //consumer端向registry订阅服务后返回的订阅结果
@@ -56,12 +40,8 @@ public class LaopopoProtocol {
     public static final byte HEARTBEAT = 127;
     //ACK
     public static final byte ACK = 126;
-    
     public static final byte COMPRESS = 80;
-    
     public static final byte UNCOMPRESS = 81;
-
-    
     private byte type;
     private byte sign;
     private long id;
@@ -107,6 +87,5 @@ public class LaopopoProtocol {
 	public void setCompress(byte compress) {
 		this.compress = compress;
 	}
-    
 
 }

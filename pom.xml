@@ -10,6 +10,7 @@
         <module>hello-world</module>
         <module>hello-boot</module>
         <module>hello-world2</module>
+        <module>rpc-study</module>
     </modules>
     <packaging>pom</packaging>
     <properties>

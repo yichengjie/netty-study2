@@ -1,4 +1,4 @@
-package com.yicj.rpc.model;
+package com.yicj.rpc.common.transport.body;
 
 import com.yicj.rpc.common.exception.RemotingCommmonCustomException;
 

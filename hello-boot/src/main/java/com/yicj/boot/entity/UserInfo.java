@@ -1,6 +1,5 @@
 package com.yicj.boot.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
