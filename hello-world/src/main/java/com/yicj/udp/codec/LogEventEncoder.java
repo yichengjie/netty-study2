@@ -24,7 +24,7 @@ public class LogEventEncoder extends MessageToMessageEncoder<LogEvent> {
                           LogEvent logEvent, List<Object> out) throws Exception {
         byte[] file = logEvent.getLogfile().getBytes(CharsetUtil.UTF_8);
         byte[] msg = logEvent.getMsg().getBytes(CharsetUtil.UTF_8) ;
-        log.info("msg : {}",logEvent.getMsg());
+        //log.info("msg : {}",logEvent.getMsg());
         ByteBuf buf = ctx.alloc().buffer(file.length + msg.length +1) ;
         buf.writeBytes(file) ;
         buf.writeByte(LogEvent.SEPARATOR) ;
@@ -32,7 +32,5 @@ public class LogEventEncoder extends MessageToMessageEncoder<LogEvent> {
         //log.info("server length : {}", buf.readableBytes());
         out.add(new DatagramPacket(buf,remoteAddress)) ;
     }
-
-
 
 }
