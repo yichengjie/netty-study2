@@ -4,7 +4,7 @@ import com.yicj.iterator.entity.Book;
 import com.yicj.iterator.iterator.BookShelfIterator;
 import com.yicj.iterator.iterator.Iterator;
 
-public class BookShelf implements Aggregate {
+public class BookShelf implements Aggregate{
     private Book[] books ;
     private int last ;
     public BookShelf(int maxSize){

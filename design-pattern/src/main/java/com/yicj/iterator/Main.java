@@ -2,7 +2,11 @@ package com.yicj.iterator;
 
 import com.yicj.iterator.aggregate.BookShelf;
 import com.yicj.iterator.entity.Book;
+import com.yicj.iterator.iterator.BookShelfIterator;
 import com.yicj.iterator.iterator.Iterator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -18,6 +22,5 @@ public class Main {
             Book book = (Book) iter.next() ;
             System.out.println(book);
         }
-
     }
 }
