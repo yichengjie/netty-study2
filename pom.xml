@@ -11,6 +11,7 @@
         <module>hello-boot</module>
         <module>hello-world2</module>
         <module>rpc-study</module>
+        <module>design-pattern</module>
     </modules>
     <packaging>pom</packaging>
     <properties>
