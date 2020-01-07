@@ -27,17 +27,17 @@ public class FixedLengthFrameDecoderTest {
         ByteBuf read =  channel.readInbound() ;
         boolean readEqualsFlag = buf.readSlice(3).equals(read);
         read.release() ;
-        log.info("read hello flag : {}", readEqualsFlag);
+        log.info("read field flag : {}", readEqualsFlag);
 
         read = channel.readInbound() ;
         readEqualsFlag = buf.readSlice(3).equals(read) ;
         read.release() ;
-        log.info("read hello flag : {}", readEqualsFlag);
+        log.info("read field flag : {}", readEqualsFlag);
 
         read = channel.readInbound() ;
         readEqualsFlag = buf.readSlice(3).equals(read) ;
         read.release() ;
-        log.info("read hello flag : {}", readEqualsFlag);
+        log.info("read field flag : {}", readEqualsFlag);
 
 
         read = channel.readInbound() ;

@@ -57,9 +57,9 @@ public class HttpRequestClient {
     class HttpRequestClientHandler extends ChannelInboundHandlerAdapter{
         @Override
         public void channelActive(ChannelHandlerContext ctx) throws Exception {
-            //URI uri = new URI("/hello-boot/getUserInfo") ;
+            //URI uri = new URI("/field-boot/getUserInfo") ;
             URI uri = new URI("/") ;
-            String content = "hello, world";
+            String content = "field, world";
             FullHttpRequest req = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.POST,
                     uri.toASCIIString(), Unpooled.copiedBuffer(content.getBytes("UTF-8")));
             req.headers().set(HttpHeaderNames.HOST, "127.0.0.1");

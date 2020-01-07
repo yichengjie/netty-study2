@@ -13,7 +13,7 @@ import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 
 public class HttpFileServer {
-    private static final String DEFAULT_URL = "/hello-world/src/" ;
+    private static final String DEFAULT_URL = "/field-world/src/" ;
     public void bind(final int port,final String url) throws InterruptedException {
         //配置服务端的NIO线程组
         EventLoopGroup bossGroup = new NioEventLoopGroup();

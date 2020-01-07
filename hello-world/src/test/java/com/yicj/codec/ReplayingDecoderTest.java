@@ -14,7 +14,7 @@ public class ReplayingDecoderTest {
     @Test
     public void testDecodeWithState() throws UnsupportedEncodingException {
         //测试入站解码
-        String content = "hello,world" ;
+        String content = "field,world" ;
         LongHeaderFrameDecoder3 decoder = new LongHeaderFrameDecoder3() ;
         EmbeddedChannel channel = new EmbeddedChannel(decoder) ;
         ByteBuf buf = Unpooled.buffer() ;

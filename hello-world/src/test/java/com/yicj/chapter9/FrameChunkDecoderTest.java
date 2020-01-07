@@ -36,11 +36,11 @@ public class FrameChunkDecoderTest {
         ByteBuf read = channel.readInbound() ;
         boolean equals = buf.readSlice(2).equals(read);
         read.release() ;
-        log.info("hello : {}", equals);
+        log.info("field : {}", equals);
 
         read = channel.readInbound() ;
         equals = buf.skipBytes(4).readSlice(3).equals(read) ;
         read.release() ;
-        log.info("hello : {}" ,equals);
+        log.info("field : {}" ,equals);
     }
 }

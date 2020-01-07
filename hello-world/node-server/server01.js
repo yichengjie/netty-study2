@@ -8,7 +8,7 @@ require('net').createServer(function (sock) {
 function func1(sock) {
     sock.write('HTTP/1.1 200 OK\r\n') ;
     sock.write('\r\n') ;
-    sock.write('hello world!') ;
+    sock.write('field world!') ;
     sock.destroy();
 }
 
@@ -16,7 +16,7 @@ function func2(sock) {
     sock.write('HTTP/1.1 200 OK\r\n');
     sock.write('Content-Length: 12\r\n');
     sock.write('\r\n');
-    sock.write('hello world!');
+    sock.write('field world!');
 }
 
 function func3(sock) {

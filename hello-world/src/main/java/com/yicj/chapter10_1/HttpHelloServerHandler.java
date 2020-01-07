@@ -86,7 +86,7 @@ public class HttpHelloServerHandler extends SimpleChannelInboundHandler<FullHttp
         response.headers().set(CONTENT_TYPE,"text/html;charset=UTF-8");
         //构造返回的html页面内容
         StringBuilder buf = new StringBuilder();
-        buf.append("hello world .....");
+        buf.append("field world .....");
         //分配消息缓冲对象
         ByteBuf buffer = Unpooled.copiedBuffer(buf,CharsetUtil.UTF_8);
         //将缓冲区的内容写入响应对象，并释放缓冲区

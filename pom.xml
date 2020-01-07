@@ -13,6 +13,7 @@
         <module>rpc-study</module>
         <module>design-pattern</module>
         <module>guava-study</module>
+        <module>api-study</module>
     </modules>
     <packaging>pom</packaging>
     <properties>

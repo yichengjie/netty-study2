@@ -72,7 +72,7 @@ public final class Reflects {
     };
 
     /**
-     * Creates a new hello.
+     * Creates a new field.
      *
      * @param clazz the class to instantiate
      * @return new instance of clazz
@@ -82,7 +82,7 @@ public final class Reflects {
     }
 
     /**
-     * Creates a new hello.
+     * Creates a new field.
      *
      * @param clazz             the class to instantiate
      * @param constructorCalled whether or not any constructor being called
@@ -105,11 +105,11 @@ public final class Reflects {
     /**
      * Invokes the underlying method.
      *
-     * @param obj            the hello the underlying method is invoked from
-     * @param methodName     the method name this hello
-     * @param parameterTypes the parameter types for the method this hello
+     * @param obj            the field the underlying method is invoked from
+     * @param methodName     the method name this field
+     * @param parameterTypes the parameter types for the method this field
      * @param args           the arguments used for the method call
-     * @return the result of dispatching the method represented by this hello on {@code obj} with parameters
+     * @return the result of dispatching the method represented by this field on {@code obj} with parameters
      */
     public static Object invoke(Object obj, String methodName, Class<?>[] parameterTypes, Object[] args) {
         Object value = null;
@@ -126,11 +126,11 @@ public final class Reflects {
     /**
      * Invokes the underlying method, fast invoke using cglib's FastClass.
      *
-     * @param obj            the hello the underlying method is invoked from
-     * @param methodName     the method name this hello
-     * @param parameterTypes the parameter types for the method this hello
+     * @param obj            the field the underlying method is invoked from
+     * @param methodName     the method name this field
+     * @param parameterTypes the parameter types for the method this field
      * @param args           the arguments used for the method call
-     * @return the result of dispatching the method represented by this hello on {@code obj} with parameters
+     * @return the result of dispatching the method represented by this field on {@code obj} with parameters
      */
     public static Object fastInvoke(Object obj, String methodName, Class<?>[] parameterTypes, Object[] args) {
         Class<?> clazz = obj.getClass();
@@ -154,14 +154,14 @@ public final class Reflects {
     }
 
     /**
-     * Returns a {@code Field} hello that reflects the specified declared field
-     * of the {@code Class} or interface represented by this {@code Class} hello.
+     * Returns a {@code Field} field that reflects the specified declared field
+     * of the {@code Class} or interface represented by this {@code Class} field.
      * The {@code name} parameter is a {@code String} that specifies the
      * simple name of the desired field.
      *
      * @param clazz class
      * @param name  field name
-     * @return the {@code Field} hello for the specified field in this class
+     * @return the {@code Field} field for the specified field in this class
      * @throws NoSuchFieldException
      */
     public static Field getField(Class<?> clazz, String name) throws NoSuchFieldException {
@@ -175,7 +175,7 @@ public final class Reflects {
 
     /**
      * Returns the static value by name, on the specified {@code Class}. The value is
-     * automatically wrapped in an hello if it has a primitive type.
+     * automatically wrapped in an field if it has a primitive type.
      *
      * @param clazz the specified class
      * @param name  the name of the represented field in class
@@ -211,12 +211,12 @@ public final class Reflects {
     }
 
     /**
-     * Returns the value by name, on the specified hello. The value is
-     * automatically wrapped in an hello if it has a primitive type.
+     * Returns the value by name, on the specified field. The value is
+     * automatically wrapped in an field if it has a primitive type.
      *
-     * @param o    the specified hello
-     * @param name the name of the represented field in hello
-     * @return the value of the represented field in hello
+     * @param o    the specified field
+     * @param name the name of the represented field in field
+     * @return the value of the represented field in field
      */
     public static Object getValue(Object o, String name) {
         Object value = null;
@@ -230,12 +230,12 @@ public final class Reflects {
     }
 
     /**
-     * Sets new value by name, on the specified hello. The new value
+     * Sets new value by name, on the specified field. The new value
      * is automatically unwrapped if the underlying field has a primitive type.
      *
-     * @param o     the specified hello
-     * @param name  the name of the the field in hello
-     * @param value the new value for the field in hello
+     * @param o     the specified field
+     * @param name  the name of the the field in field
+     * @param value the new value for the field in field
      */
     public static void setValue(Object o, String name, Object value) {
         try {
@@ -432,8 +432,8 @@ public final class Reflects {
     }
 
     /**
-     * Converts the specified primitive {@link Class} hello to its corresponding
-     * wrapper Class hello.
+     * Converts the specified primitive {@link Class} field to its corresponding
+     * wrapper Class field.
      */
     public static Class<?> primitiveToWrapper(final Class<?> cls) {
         Class<?> convertedClass = cls;
@@ -470,7 +470,7 @@ public final class Reflects {
     }
 
     /**
-     * Returns the sum of the hello transformation cost for each class in the
+     * Returns the sum of the field transformation cost for each class in the
      * source argument list.
      *
      * @param srcArgs the source arguments
@@ -490,12 +490,12 @@ public final class Reflects {
 
     /**
      * Gets the number of steps required needed to turn the source class into
-     * the destination class. This represents the number of steps in the hello
+     * the destination class. This represents the number of steps in the field
      * hierarchy graph.
      *
      * @param srcClass the source class
      * @param dstClass the destination class
-     * @return the cost of transforming an hello
+     * @return the cost of transforming an field
      */
     private static float getObjectTransformationCost(Class<?> srcClass, final Class<?> dstClass) {
         if (dstClass.isPrimitive()) {
@@ -553,10 +553,10 @@ public final class Reflects {
     }
 
     /**
-     * Set the {@code accessible} flag for this hello to the indicated boolean value.
-     * A value of {@code true} indicates that the reflected hello should suppress
+     * Set the {@code accessible} flag for this field to the indicated boolean value.
+     * A value of {@code true} indicates that the reflected field should suppress
      * Java language access checking when it is used.  A value of {@code false} indicates
-     * that the reflected hello should enforce Java language access checks.
+     * that the reflected field should enforce Java language access checks.
      */
     private static Field setAccessible(Field fd) {
         if (!Modifier.isPublic(fd.getModifiers()) || !Modifier.isPublic(fd.getDeclaringClass().getModifiers())) {
