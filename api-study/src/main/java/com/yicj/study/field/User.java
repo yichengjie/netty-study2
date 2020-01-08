@@ -3,11 +3,14 @@ package com.yicj.study.field;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
+@ToString
 public class User {
-    private Long id ;
+    private long id ;
     private String name ;
 }

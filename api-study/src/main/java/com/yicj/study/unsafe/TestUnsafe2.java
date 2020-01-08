@@ -109,21 +109,14 @@ public class TestUnsafe2 {
     // 的时间，但CAS经常失败运行容易引起性能问题，也存在ABA问题。在Unsafe中包含compareAndSwapObject、
     // compareAndSwapInt、compareAndSwapLong三个方法，compareAndSwapInt的简单示例如下。
     private static void testOperObject5(Unsafe unsafe) throws Exception{
-        User user = new User() ;
-        user.setId(3000L);
-        System.out.println(user);
-        Field id = User.class.getDeclaredField("id");
+        User data = new User();
+        data.setId(1L);
+        Field id = data.getClass().getDeclaredField("id");
         long l = unsafe.objectFieldOffset(id);
-        //System.out.println("=====> " +l);
-        //id.setAccessible(true);
+        id.setAccessible(true);
         //比较并交换，比如id的值如果是所期望的值1，那么就替换为2，否则不做处理
-        // 第一个参数为需要改变的对象，
-        // 第二个为偏移量(即之前求出来的valueOffset的值)，
-        // 第三个参数为期待的值，
-        // 第四个为更新后的值
-        boolean flag = unsafe.compareAndSwapLong(user, l, 3000L, 2L);
-        System.out.println("flag : " + flag);
-        System.out.println(user);
+        unsafe.compareAndSwapLong(data,l,1L,2L);
+        System.out.println(data);
     }
 
 }
