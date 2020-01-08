@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.lang.reflect.Field;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class TestUnsafe2 {
 
@@ -16,7 +17,7 @@ public class TestUnsafe2 {
         field.setAccessible(true);
         Unsafe unsafe = (Unsafe)field.get(null);
         //testOperArray(unsafe) ;
-        testOperObject5(unsafe) ;
+        testOperObject6(unsafe) ;
     }
 
     //操作数组:
@@ -117,6 +118,36 @@ public class TestUnsafe2 {
         //比较并交换，比如id的值如果是所期望的值1，那么就替换为2，否则不做处理
         unsafe.compareAndSwapLong(data,l,1L,2L);
         System.out.println(data);
+    }
+
+    //常量获取
+    // * 可以获取地址大小（addressSize），页大小（pageSize），基本类型数组的偏移量
+    // * （Unsafe.ARRAY_INT_BASE_OFFSET\Unsafe.ARRAY_BOOLEAN_BASE_OFFSET等）、
+    // * 基本类型数组内元素的间隔（Unsafe.ARRAY_INT_INDEX_SCALE\Unsafe.ARRAY_BOOLEAN_INDEX_SCALE等）
+    private static void testOperObject6(Unsafe unsafe) throws Exception{
+        //get os address size
+        System.out.println("address size is : " + unsafe.addressSize());
+        //get os page size
+        System.out.println("page size is : " + unsafe.pageSize());
+        //int array base offset
+        System.out.println("unsafe array int base offset : " + Unsafe.ARRAY_INT_BASE_OFFSET);
+    }
+
+    //线程许可
+    // * 许可线程通过（park），或者让线程等待许可(unpark)
+    private static void testOperObject7(Unsafe unsafe) throws Exception{
+        Thread packThread = new Thread(()->{
+            long startTime = System.currentTimeMillis() ;
+            //纳秒，相对时间park
+            unsafe.park(false,3000000000L);
+            //毫秒，绝对时间park
+            long endTime = System.currentTimeMillis() ;
+            System.out.println("main thread end ,cost : " + (endTime - startTime) +"ms");
+        }) ;
+        packThread.start();
+        TimeUnit.SECONDS.sleep(1);
+        //注释掉下一行后，线程3秒后进行输出，否则1秒后输出
+        unsafe.unpark(packThread);
     }
 
 }
