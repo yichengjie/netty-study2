@@ -11,6 +11,6 @@ import lombok.ToString;
 @Data
 @ToString
 public class User {
-    private long id ;
+    private long id ;//注意这里不能使用Long,否则无法设置成功
     private String name ;
 }

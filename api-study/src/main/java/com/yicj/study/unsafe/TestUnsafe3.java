@@ -8,7 +8,7 @@ import java.lang.reflect.Field;
 public class TestUnsafe3 {
     //获取Unsafe实例
     //记录state在类中的偏移量
-    private long result = 0;
+    private Long result = 0L;
     public static void main(String[] args) throws Exception {
         test1() ;
     }
@@ -24,7 +24,7 @@ public class TestUnsafe3 {
         User user = new User();
         //执行并返回结果
         /*boolean flag = */
-        unsafe.compareAndSwapLong(user, stateOffset, 0l, 4000L);
+        unsafe.compareAndSwapLong(user, stateOffset, 0L, 4000L);
         //System.out.println("flag : " + flag);
         System.out.println(user);
     }
