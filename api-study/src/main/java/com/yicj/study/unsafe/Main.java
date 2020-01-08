@@ -37,8 +37,8 @@ public class Main {
          * s2====> 16
          */
         System.out.println("====================");
-        boolean flag = unsafe.compareAndSwapLong(main, 8, 20, 21);
+        boolean flag = unsafe.compareAndSwapLong(main, 16, 0, 21);
         System.out.println(flag);
-        System.out.println(main.s1);
+        System.out.println(main.s2);
     }
 }
