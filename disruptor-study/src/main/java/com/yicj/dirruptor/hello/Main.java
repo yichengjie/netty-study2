@@ -17,7 +17,8 @@ import com.yicj.dirruptor.hello.event.LongEventTranslator;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
-
+//https://blog.csdn.net/twypx/article/details/80398886
+//https://www.cnblogs.com/haiq/p/4112689.html
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
