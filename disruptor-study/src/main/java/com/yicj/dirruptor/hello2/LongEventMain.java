@@ -8,10 +8,8 @@ import com.yicj.dirruptor.hello2.component.LongEventProducer;
 import com.yicj.dirruptor.hello2.event.LongEvent;
 import com.yicj.dirruptor.hello2.event.LongEventFactory;
 import com.yicj.dirruptor.hello2.handler.LongEventHandler;
-
 import java.nio.ByteBuffer;
 import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class LongEventMain {
@@ -36,7 +34,7 @@ public class LongEventMain {
         //第三个参数为线程工厂
         //第四个参数SINGLE(单个生产者)MULTI(多个生产者)
         //第五个参数定义一种关于生产和消费的策略
-        Disruptor<LongEvent> disruptor = new Disruptor<LongEvent>(
+        Disruptor<LongEvent> disruptor = new Disruptor<>(
                 factory,
                 bufferSize,
                 new DisruptorThreadFactory(),
