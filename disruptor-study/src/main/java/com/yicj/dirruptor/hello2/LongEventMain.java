@@ -11,7 +11,7 @@ import com.yicj.dirruptor.hello2.handler.LongEventHandler;
 import java.nio.ByteBuffer;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
-
+//https://blog.csdn.net/QQB67G8COM/article/details/90085386
 public class LongEventMain {
 
     public static void main(String[] args) {
